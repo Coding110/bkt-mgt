@@ -1,0 +1,49 @@
+<config>
+    <tabs>
+        <qloginconfig translate="label" module="qqlogin">
+            <label>QQ LOGIN</label>
+            <sort_order>99999</sort_order>
+        </qloginconfig>
+    </tabs>
+    <sections>
+        <qqlogin_options translate="label" module="qqlogin">
+            <label>QQ Login Config Options</label>
+            <tab>qloginconfig</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <qlogin_messages translate="label">
+                    <label>QQ Login Config Fields</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <qqlogin_appid>
+                            <label>APPID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </qqlogin_appid>
+                    </fields>
+                    <fields>
+                        <qqlogin_appkey>
+                            <label>APP KEY</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </qqlogin_appkey>
+                    </fields>
+                </qlogin_messages>
+            </groups>                   
+         </qqlogin_options>
+    </sections>    
+ </config>

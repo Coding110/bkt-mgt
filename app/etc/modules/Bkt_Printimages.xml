@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bkt_Printimages>
+            <active>true</active>
+            <codePool>local</codePool>
+			 <version>0.1.0</version>
+        </Bkt_Printimages>
+    </modules>
+</config>

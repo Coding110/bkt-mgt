@@ -1,0 +1,186 @@
+<div class="header-style-default">
+<div class="header-top">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-sm-5 top-curlang">
+				<!--<p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>-->
+				<div class="cur-lang-block">
+					<?php echo $this->getChildHtml('currency'); ?>
+					<?php echo $this->getChildHtml('store_language') ?>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-7 toplinks-header">
+				<ul class="links-account">
+					<li class="account-link">
+						<a href="<?php echo $this->getUrl('customer/account')?>" title="<?php echo $this->__('My Account');?>" ><?php echo $this->__('My Account');?></a>
+						<ul class="dropdown-link">
+							<li><a href="./customer/account" title="Account info"><?php echo $this->__('Account info'); ?></a></li>
+							<li><a href="#" title="Watch list">Watch list</a></li>
+							<li><a href="#" title="Favorites">Favorites</a></li>
+							<li><a href="#" title="Purchase history">Purchase history</a></li>
+							<li><a href="#" title="My collections">My collections</a></li>
+							<li><a href="#" title="Followed searches">Followed searches</a></li>
+							<li><a href="#" title="Messages">Messages</a></li>
+						</ul>
+					</li>
+
+					<li class="register-link-help">
+						<a href="#" title="<?php echo $this->__('Help');?>" ><?php echo $this->__('Help');?></a>
+						<ul class="dropdown-link">
+							<li><a href="#" title="Shipping & Delivery">Shipping & Delivery</a></li>
+							<li><a href="#" title="Returns & Refunds">Returns & Refunds</a></li>
+							<li><a href="#" title="Managing Your Account">Managing Your Account</a></li>
+							<li><a href="#" title="Payment, Pricing & Promotions">Payment, Pricing & Promotions</a></li>
+							<li><a href="#" title="Ordering">Ordering</a></li>
+							<li><a href="#" title="Need More Help?">Need More Help?</a></li>
+						</ul>
+					</li>
+				</ul>
+				<?php echo $this->getChildHtml('topLinks');?>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="wrap-header-top">
+	<div class="yt-header-top">
+		<div class="container">
+			<div class="row">
+				<div class="logo-wrapper col-md-3">
+					<h1>
+						<strong>
+							<?php 
+								$sk = $var_yttheme->skinurl();
+								$skinURL = str_replace("sm_setting","sm_lovefashion",$sk);
+							?>
+							<a title="<?php echo $this->getLogoAlt() ?>" href="<?php echo $this->getUrl('') ?>">
+								<img alt="<?php echo $this->getLogoAlt() ?>" src="<?php echo $skinURL;?>/images/logo<?php if($var_yttheme->getParam('sitestyle')=='red'){ echo '';} else { echo '_'.$var_yttheme->getParam('sitestyle');}?>.png">
+							</a>
+						</strong>
+					</h1>
+				</div>
+				<div class="right-content-header col-md-9">
+					<div class="search-minicart">
+						<?php echo $this->getChildHtml('mini-cartpro') ?>
+						<div class="wishlist-compare">
+							<?php echo $this->getChildHtml('topLinksSecond');?>
+							<?php echo $this->getChildHtml('catalog.compare.sidebar.link');?>
+						</div>
+						<?php echo $this->getChildHtml('searchbox') ?> 
+						
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+
+
+	<div style="clear:both;"></div>
+</div>        
+
+
+<div class="yt-header-under">
+	<div class="container">
+		<div class="row yt-header-under-wrap">
+			<div class="col-md-12">
+				<div class="yt-main-menu">
+					<div class="yt-menu">
+						<?php if( $var_yttheme->getParam('menustyle') == 'mega' ){
+							echo $this->getChildHtml('megaMenu');
+						} else {
+							echo $this->getChildHtml('topMenu');
+						} ?>
+						
+						<div class="quick-info"> 
+		                        
+                            <?php if(!$this->helper('customer')->isLoggedIn() ){ ?>		
+                            <div class="inner">
+	                            <span class="item1">
+	                            	<a  title="Register" href="<?php echo Mage::getUrl('customer/account/create'); ?>">
+	                            	<?php echo $this->__('Join Free'); ?>
+	                            	</a>
+	                            </span>
+	                            <span class="item2">
+	                            	<span><?php echo $this->__('Sign in'); ?></span>
+	                            	<div class="login-quick">
+		                                <?php echo $this->getChildHtml('frmlogin'); ?>
+		                            </div>
+	                            </span>
+                            </div><!---->
+                            
+                            <?php }else{ ?>
+                            <div class="inner">
+									<!--
+	                            	<span class="item1">
+		                            	<span><a  title="Register" href="<?php echo Mage::getUrl('customer/account/create'); ?>"><?php echo $this->__('Join Free'); ?></a></span>
+		                            </span>
+									-->
+		                            <span class="item2">
+										<span><a  title="Log Out" href="<?php echo Mage::getUrl("customer/account/logout") ;?>"><?php echo $this->__('Log Out'); ?></a></span>
+	                            	</span>
+	                            
+                        	</div>
+                            <?php }?>
+		                        
+		                </div>
+					</div>
+				</div>
+
+				<div id="yt-responsivemenu" class="yt-responsivemenu">
+					<div class="mobile-menu-wrapper">
+						<?php echo $this->getChildHtml('mobiMenu'); ?>
+					</div>
+					<div class="block-mobile search-mobile">
+						<div class="w-mobile">
+							<a href="javascript:void(0);" class="btn-mobile-h search-button-mobile"></a>
+						</div>
+						<script>
+						jQuery(document).ready(function($){
+							$( ".search-button-mobile" ).click(function() {
+									$('.sm-serachbox-pro').slideToggle(200);
+									//$(this).toggleClass('active_btn_mobile');
+								});
+							});
+						</script>
+					</div>
+					<div class="block-mobile account-links-mobile">
+						<div class="w-mobile">
+							<a href="javascript:void(0);" class="btn-mobile-h link-mobile-icon"></a>
+							<div class="show-content-mobile link-mobile-wrapper">
+								<?php //echo $this->getChildHtml('topLinks');?>
+								<ul class="links-mobile">
+									<li>
+										<?php if(!$this->helper('customer')->isLoggedIn()):?>
+											<a class="" href="customer/account/login" title="<?php echo $this->__('Login');?>" ><?php echo $this->__('Login');?></a>
+										<?php endif;?>
+																
+										<?php if($this->helper('customer')->isLoggedIn()):?>
+											<a class="" href="<?php echo $this->getUrl('customer/account/logout')?>" title="<?php echo $this->__('Logout');?>"><?php echo $this->__('Logout');?></a>
+										<?php endif;?>
+									</li>
+									<li>
+										<?php if(!$this->helper('customer')->isLoggedIn()):?>
+											<a class="register-link-header" href="<?php echo $this->getUrl('customer/account/create')?>" title="<?php echo $this->__('Register');?>" ><?php echo $this->__('Register');?></a>
+										<?php endif;?>
+									</li>
+									<li><a class="checkout-link-header" href="<?php echo $this->getUrl('checkout/onepage')?>" title="<?php echo $this->__('Checkout');?>"><?php echo $this->__('Checkout');?></a></li>
+								</ul>
+								<?php // echo $this->getChildHtml('topLinksSecond');?>
+							</div>
+						</div>
+					</div>
+					<script>
+						jQuery(document).ready(function($){
+							$( ".btn-mobile-h" ).click(function() {
+								$(this).next('.show-content-mobile').slideToggle(200);
+								$(this).toggleClass('active_btn_mobile');
+							});
+						});
+					</script>
+				</div>
+			
+			</div>
+			
+		</div>
+	</div>
+</div>
+</div>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Wangdz_Addresseditor>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Wangdz_Addresseditor>
+		
+        <Wangdz_Directoryex>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Wangdz_Directoryex>
+    </modules>
+</config>

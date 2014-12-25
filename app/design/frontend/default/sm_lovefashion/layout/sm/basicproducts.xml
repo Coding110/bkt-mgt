@@ -1,0 +1,13 @@
+<?xml version="1.0"?>   
+<layout version="1.0">
+	<default>
+        <reference name="head">
+        	<action method="addCss"><stylesheet>sm/basicproducts.css</stylesheet></action>
+        </reference>
+    </default>
+	<cms_index_index>
+	</cms_index_index>
+	<catalog_category_view>
+	</catalog_category_view>	
+</layout>   
+	

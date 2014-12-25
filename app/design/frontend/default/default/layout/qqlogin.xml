@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+		<reference name="top.links">
+            <block type="qqlogin/headimg" name="qqlogin_headimg"/>
+            <action method="addLinkBlock" translate="label title" module="qqlogin"><label>qqlogin_headimg</label></action>
+        </reference>
+    </default>
+	<qqlogin_index_back>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		<reference name="content">
+            <block type="qqlogin/notify" name="qqlogin_notify" template="qqlogin/notify.phtml"/>
+        </reference>
+	</qqlogin_index_back>
+</layout> 

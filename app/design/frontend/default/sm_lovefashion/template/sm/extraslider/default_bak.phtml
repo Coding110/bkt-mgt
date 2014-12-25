@@ -1,0 +1,108 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Extraslider - Version 1.1
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+
+	$options = $this->getConfigObject();
+	$smarthelper= Mage::helper('extraslider/utils');
+	$items = $this->getProducts();
+	$count_item = count($items);
+	$item_of_page = $options->num_rows * $options->num_cols;
+	$suffix = rand().time();
+	$tag_id = 'sjextraslider_'.$suffix;	
+	
+	   
+	if(!empty($items)){
+	echo $this->getScriptTags();?>
+    <div id="<?php echo $tag_id;?>" class="block-left sj-extraslider <?php if( $options->effect == 'slide' ){ echo $options->effect;}?> preset02-<?php echo $options->num_cols; ?>" data-start-jcarousel='1'>
+        <?php if($options->title_slider_display == 1){?>
+            <div class="title-header heading-title"><?php echo $options->title_slider;?></div>
+        <?php }?>		    
+    	<div class="extraslider-control  <?php if( $options->button_page == 'under' ){echo 'button-type2';}?>">
+		    <!-- a class="button-prev" href="<?php //echo '#'.$tag_id;?>" data-jslide="prev"></a-->
+		    <?php if( $options->button_page == 'top' ){?>
+		    <ul class="nav-page">
+		    <?php $j = 0;$page = 0;
+		    	foreach ($items as $item){$j ++;
+				$active_class = $page == 0 ? " active" : "";
+		    		if( $j%$item_of_page == 1 || $item_of_page == 1 ){$page ++;?>
+		    		<li class="page">
+		    			<a class="button-page <?php if( $page==1 ){echo 'sel';}?>" href="<?php echo '#'.$tag_id;?>" data-jslide="<?php echo $page-1;?>"></a>
+		    		</li>
+	    		<?php }}?>
+		    </ul>
+		    <?php }?>
+		    <!-- a class="button-next" href="<?php //echo '#'.$tag_id;?>" data-jslide="next"></a-->
+	    </div>
+	    <div class="extraslider-inner">
+	    <?php $count = 0; $i = 0; 
+	    foreach($items as $item){$count ++; $i++;?>
+            <?php if($count%$item_of_page == 1 || $item_of_page == 1){?>
+            <div class="item <?php if($i==1){echo "active";}?>">
+            <?php }?>
+                <?php if($count%$options->num_cols == 1 || $options->num_cols == 1 ){?>
+                <div class="line">
+                <?php }?>  
+                
+				    <div class="item-wrap <?php echo $options->theme; if($count%$options->num_cols == 0 || $count== $count_item && $options->num_cols !=1){echo " last";}?> ">
+				    	<div class="item-image">
+                            <img src="<?php echo $item['image'];?>" alt="<?php echo $item['title']; ?>" title="<?php echo $item['title']; ?>" />	    				
+				    	</div>
+			    	<?php if( $options->item_title_display == 1 || $options->item_desc_display == 1 || $options->item_readmore_display == 1 ){?>
+				    	<div class="item-info">
+				    	<?php if( $options->item_title_display == 1 ){?>
+				    		<div class="item-title">
+                                <a href="<?php echo $item['link'];?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";>
+                                	<?php echo $item['title'];?>
+                                </a>    			     
+				    		</div>
+			    		<?php }?>
+			    		<?php if( ($options->item_desc_display == 1 && !empty($item['desc'])) || $options->item_readmore_display == 1 || $options->item_review_disp || $options->item_price_disp ){?>
+                            <div class="item-content">
+							<?php if( (int)$options->item_price_disp ){ ?>
+								<div class="item-price">
+									<div class="sale-price">
+									<?php echo $item['price'];?>
+									</div>
+								</div>
+							<?php }?>                            
+							<?php if($options->item_review_disp == 1){ ?>
+								<div class="item-review">
+									<?php echo $item['review']; ?>
+								</div><!--end item-review-->
+							<?php }	?>				 
+                            </div>
+                        <?php }?>
+				    	</div>
+			    	<?php }?>
+				    </div>                
+                 
+                <?php if($count%$options->num_cols == 0 || $count== $count_item){?>    
+                </div><!--line-->
+                <?php } ?>		    		
+            <?php if(($count%$item_of_page == 0 || $count== $count_item)){?>    
+            </div><!--end item--> 
+            <?php }?>
+	    <?php }?>
+	    </div><!--end extraslider-inner -->
+	    <?php if( $options->button_page == 'under' ){?>
+	    <ul class="nav-page nav-under">
+	    <?php $j = 0;$page = 0;
+	    	foreach ($items as $item){$j ++;
+			$active_class = $page == 0 ? " active" : "";
+	    		if( $j%$item_of_page == 1 || $item_of_page == 1 ){$page ++;?>
+	    		<li class="page">
+	    			<a class="button-page <?php if( $page==1 ){echo 'sel';}?>" href="<?php echo '#'.$tag_id;?>" data-jslide="<?php echo $page-1;?>"></a>
+	    		</li>
+    		<?php }}?>
+	    </ul>
+	    <?php }?>	    
+    </div>
+<?php }else{ echo $this->__('Has no item to show!');}?>
+
+
+

@@ -1,0 +1,142 @@
+<div class="header-style-2">
+	<div class="header-top">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-sm-5 top-curlang">
+					<!--<p class="welcome-msg"><?php echo $this->getChildHtml('welcome') ?> <?php echo $this->getAdditionalHtml() ?></p>-->
+					<div class="cur-lang-block">
+						<?php echo $this->getChildHtml('currency'); ?>
+						<?php echo $this->getChildHtml('store_language') ?>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-7 toplinks-header">
+					<ul class="links-account">
+						<li class="account-link">
+							<a href="<?php echo $this->getUrl('customer/account')?>" title="<?php echo $this->__('My Account');?>" ><?php echo $this->__('My Account');?></a>
+							<ul class="dropdown-link">
+								<li><a href="./customer/account" title="Account info"><?php echo $this->__('Account info'); ?></a></li>
+								<li><a href="#" title="Watch list">Watch list</a></li>
+								<li><a href="#" title="Favorites">Favorites</a></li>
+								<li><a href="#" title="Purchase history">Purchase history</a></li>
+								<li><a href="#" title="My collections">My collections</a></li>
+								<li><a href="#" title="Followed searches">Followed searches</a></li>
+								<li><a href="#" title="Messages">Messages</a></li>
+							</ul>
+						</li>
+
+						<li class="register-link-help">
+							<a href="#" title="<?php echo $this->__('Help');?>" ><?php echo $this->__('Help');?></a>
+							<ul class="dropdown-link">
+								<li><a href="#" title="Shipping & Delivery">Shipping & Delivery</a></li>
+								<li><a href="#" title="Returns & Refunds">Returns & Refunds</a></li>
+								<li><a href="#" title="Managing Your Account">Managing Your Account</a></li>
+								<li><a href="#" title="Payment, Pricing & Promotions">Payment, Pricing & Promotions</a></li>
+								<li><a href="#" title="Ordering">Ordering</a></li>
+								<li><a href="#" title="Need More Help?">Need More Help?</a></li>
+							</ul>
+						</li>
+					</ul>
+					<?php echo $this->getChildHtml('topLinks');?>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="wrap-header-top">
+		<div class="yt-header-top">
+			<div class="container">
+				<div class="row">
+					<div class="logo-wrapper col-md-3">
+						<h1>
+							<strong>
+								<?php 
+									$sk = $var_yttheme->skinurl();
+									$skinURL = str_replace("sm_setting","sm_lovefashion",$sk);
+								?>
+								<a title="<?php echo $this->getLogoAlt() ?>" href="<?php echo $this->getUrl('') ?>">
+									<img alt="<?php echo $this->getLogoAlt() ?>" src="<?php echo $skinURL;?>/images/logo<?php if($var_yttheme->getParam('sitestyle')=='red'){ echo '';} else { echo '_'.$var_yttheme->getParam('sitestyle');}?>.png">
+								</a>
+							</strong>
+						</h1>
+					</div>
+					
+					<div class="col-md-9">
+						<div class="yt-main-menu yt-header-under">
+							<div class="yt-menu">
+								<?php if( $var_yttheme->getParam('menustyle') == 'mega' ){
+									echo $this->getChildHtml('megaMenu');
+								} else {
+									echo $this->getChildHtml('topMenu');
+								} ?>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+		<div style="clear:both;"></div>
+	</div>  
+	
+	<div class="yt-header-under">
+		<div class="container">
+			<div class="row">
+				<div id="yt-responsivemenu" class="yt-responsivemenu">
+					<div class="mobile-menu-wrapper">
+						<?php echo $this->getChildHtml('mobiMenu'); ?>
+					</div>
+				</div>
+				<div class="col-md-8 hd2-search-box">
+					<?php echo $this->getChildHtml('searchbox') ?> 
+				</div>
+				<div class="col-md-4 block-cus-hd2">
+					<div class="i-block-hd2 minicart-hd2">
+						<?php echo $this->getChildHtml('mini-cartpro') ?>
+					</div>
+					<div class="i-block-hd2 wishlist-hd2">
+						<?php echo $this->getChildHtml('topLinksSecond');?>
+						<script>
+							jQuery(document).ready(function($){
+								$('.wishlist-hd2 li a').prop('title', '<?php echo $this->__('My Wishlist')?>');
+							});
+						</script>
+					</div>
+					<div class="i-block-hd2 compare-hd2">					
+						<?php echo $this->getChildHtml('catalog.compare.sidebar.link');?>
+					</div>
+					<?php if(!$this->helper('customer')->isLoggedIn()):?>
+						<div class="i-block-hd2 login-hd2">	
+							<a data-toggle="tooltip" data-placement="top" title="<?php echo $this->__('Login')?>"  id="btn-login-hd2"><?php echo $this->__('Login');?></a>
+							<div class="login-quick">
+								<?php echo $this->getChildHtml('frmlogin'); ?>
+							</div>
+							<script>
+							jQuery(document).ready(function($){
+								$( "#btn-login-hd2" ).click(function() {
+									$('.login-quick').toggleClass('active');
+									$('.header-style-2 .login-hd2').toggleClass('active_block');
+								});
+							});
+							</script>
+						</div>
+						
+						<div class="i-block-hd2 register-hd2">	
+							<a  title="Register" href="<?php echo Mage::getUrl('customer/account/create'); ?>">
+							   <?php echo $this->__('Join Free'); ?>
+							</a>
+						</div>
+					<?php endif;?>
+					
+					<?php if($this->helper('customer')->isLoggedIn()):?>
+						<div class="i-block-hd2 logout-hd2">	
+							<a href="<?php echo $this->getUrl('customer/account/logout')?>" title="<?php echo $this->__('Logout');?>"><?php echo $this->__('Logout');?></a>
+						</div>
+					<?php endif;?>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>

@@ -1,0 +1,95 @@
+									<div class="static-top-home">
+										<div class="container">
+											<div class="row">
+												<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner-top-home')->toHtml(); ?>
+											</div>
+										</div>
+									</div>
+
+									<div class="slidershow-banner slideshow-homev1">
+										<div class="container">
+											<div class="row">
+												<div class="col-md-6 slideshow-homev1">
+													<div class="yt-slideshow">
+														<?php echo $this->getChildHtml('dynamicslideshow.list.default') ?> 
+													</div> 
+												</div>
+												
+												<div class="col-md-6 static-homev1">
+													<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner-top-homev1')->toHtml(); ?>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="static-banner-center-homev1">
+										<div class="container">
+											<div class="row">
+												<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner-center-homev1')->toHtml(); ?>
+											</div>
+										</div>
+									</div>
+									
+									<div class="newletter-home">
+										<div class="container">
+											<div class="bg-newletter">
+												<div class="row">
+													<div class="col-md-5">
+														<div class="new-static">
+															<h2>
+																Become A <span>Bright Insider</span><br>Don’s Miss Out On ... 25% OFF
+															</h2>
+															<p>Sign up for style tips<br>news and an exclusive offer</p>
+														</div>
+													</div>
+													<div class="col-md-7">
+														<?php echo $this->getChildHtml('block-newsletter') ?>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="tab-listing">
+										<div class="container">
+											<div class="row">
+												<div class="col-md-12">
+													<?php echo $this->getChildHtml('content-tab-one') ?>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="banner-under-tab">
+										<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('banner-under-tab')->toHtml(); ?>
+									</div>
+									
+									<div class="base-products-clients-say">
+										<div class="container">
+											<div class="row">
+												<div class="col-md-4 col-xs-6 base-product-1">
+													<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('best-sale-home')->toHtml(); ?>	
+												</div>
+												<div class="col-md-4 col-xs-6 base-product-2">
+													<?php echo $this->getChildHtml('latestblog'); ?>	
+												</div>
+												<div class="col-md-4 col-xs-12 clients-say">
+													<div class="home-products">
+													<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('what-client-says')->toHtml(); ?>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="brand-products">
+										<div class="container">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="wrap-brand">
+														 <?php echo $this->getChildHtml('slider.list.footer'); ?>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>

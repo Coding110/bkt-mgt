@@ -1,0 +1,110 @@
+<?php
+$keepontop_menu = $var_yttheme->getParam('keepontop_menu');
+if($keepontop_menu){
+	$class = 'ontop';
+}?>
+<div class="header-style-3 <?php echo $class;?>">
+	<div class="container">
+		<div class="row">
+			<div class="logo-wrapper-hd3 col-md-12">
+					<h1>
+						<strong>
+							<?php 
+								$sk = $var_yttheme->skinurl();
+								$skinURL = str_replace("sm_setting","sm_lovefashion",$sk);
+							?>
+							<a title="<?php echo $this->getLogoAlt() ?>" href="<?php echo $this->getUrl('') ?>">
+								<img alt="<?php echo $this->getLogoAlt() ?>" src="<?php echo $skinURL;?>/images/logo_hd3<?php if($var_yttheme->getParam('sitestyle')=='red'){ echo '';} else { echo '_'.$var_yttheme->getParam('sitestyle');}?>.png">
+							</a>
+						</strong>
+					</h1>
+			</div>
+		</div>
+	</div>
+	<div class="yt-header-under">
+		<div class="container">
+			<div class="row">
+				<div class="nav-cur-lang col-md-12">
+					<div id="yt-responsivemenu" class="yt-responsivemenu">
+						<div class="mobile-menu-wrapper">
+							<?php echo $this->getChildHtml('mobiMenu'); ?>
+						</div>
+					</div>
+					<div class="megamenu-hd3">
+						<div class="yt-header-under-wrap">
+							<div class="yt-main-menu">
+								<div class="yt-menu">
+									<?php if( $var_yttheme->getParam('menustyle') == 'mega' ){
+										echo $this->getChildHtml('megaMenu');
+									} else {
+										echo $this->getChildHtml('topMenu');
+									} ?>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="cur-lang-hd3">
+						<div class="cur-lang-block">
+							<?php echo $this->getChildHtml('currency'); ?>
+							<?php echo $this->getChildHtml('store_language') ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="header-bottom-hd3">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="block-hd3-h block-cart-hd3">
+						<?php echo $this->getChildHtml('mini-cartpro') ?>
+					</div>
+					<div class="block-hd3-h block-search-hd3">
+						<?php echo $this->getChildHtml('searchbox') ?> 
+					</div>
+					<div class="block-hd3-h block-wisht-compare-hd3">
+						<div class="wishlist-compare">
+							<?php echo $this->getChildHtml('topLinksSecond');?>
+							<?php echo $this->getChildHtml('catalog.compare.sidebar.link');?>
+						</div>
+					</div>
+					
+					<div class="block-hd3-h block-account-hd3">
+						<div class="header-top">
+							<div class="toplinks-header">
+								<ul class="links-account">
+									<li class="account-link">
+										<a href="<?php echo $this->getUrl('customer/account')?>" title="<?php echo $this->__('My Account');?>" ><?php echo $this->__('My Account');?></a>
+										<ul class="dropdown-link">
+											<li class="item">
+												<?php if(!$this->helper('customer')->isLoggedIn()):?>
+													<a href="<?php echo $this->getUrl('customer/account/login')?>" title="<?php echo $this->__('Login');?>" ><?php echo $this->__('Login');?></a>
+												<?php endif;?>
+													
+												<?php if($this->helper('customer')->isLoggedIn()):?>
+													<a href="<?php echo $this->getUrl('customer/account/logout')?>" title="<?php echo $this->__('Logout');?>"><?php echo $this->__('Logout');?></a>
+												<?php endif;?>
+											</li>
+											<li><a href="./customer/account" title="Account info"><?php echo $this->__('Account info'); ?></a></li>
+											<li><a href="#" title="Watch list">Watch list</a></li>
+											<li><a href="#" title="Favorites">Favorites</a></li>
+											<li><a href="#" title="Purchase history">Purchase history</a></li>
+											<li><a href="#" title="My collections">My collections</a></li>
+											<li><a href="#" title="Followed searches">Followed searches</a></li>
+											<li><a href="#" title="Messages">Messages</a></li>
+										</ul>
+									</li>
+								</ul>
+								<?php echo $this->getChildHtml('topLinks');?>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>

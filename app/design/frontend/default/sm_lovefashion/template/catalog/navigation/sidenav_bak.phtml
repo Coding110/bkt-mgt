@@ -1,0 +1,118 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php 
+/**
+ * Top menu for store
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+
+<div class="block block-right-nav">
+    <div class="block-title">
+		<strong>
+			<span><?php echo $this->__('Categories') ?></span>
+		</strong>
+    </div>
+    <div class="block-content">
+        <ul id="yt_sidenav" class="dropdow-nav">
+        <?php foreach ($this->getStoreCategories() as $_category): ?>
+            <?php echo $this->drawItem($_category) ?>
+        <?php endforeach ?>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+	jQuery('document').ready(function($){
+		/* for(var i=1;i<=2;i++){
+			$('.dropdow-nav > li:last-child').remove();
+		} */
+		$i = 0;
+		$('ul.dropdow-nav').append('<span class="more-view">See more</span>');
+		$('ul.dropdow-nav > li').each(function(){
+			$i ++;
+			if($i>3){
+				$(this).css('display', 'none');
+			}
+			//$('div.sm_megamenu_wrapper_vertical_menu').css('height', $('ul.dropdow-nav').outerHeight());
+		});
+		$('ul.dropdow-nav > .more-view').click(function(){
+			if($(this).hasClass('open')){
+				$i=0;
+				$('ul.dropdow-nav > li').each(function(){
+					$i ++;
+					if($i>3){
+						$(this).hide(300);
+					}
+				});
+				$(this).removeClass('open');
+				$(this).text('See more');
+			}else{
+				$i=0;
+				$('ul.dropdow-nav > li').each(function(){
+					$i ++;
+					if($i>3){
+						$(this).show(300);
+					}
+				});
+				$(this).addClass('open');
+				$(this).text('See less');
+			}
+		});
+		
+		
+	})
+</script>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			/* var speed=200;
+			$('.dropdow-nav li').has('ul').append( '<span title="Display sub-categories" class="touch-button">open</span>' );
+			$('.dropdow-nav li').has('ul.level0').append( '<span title="Hidden sub-categories" class="touch-hidden">open</span>' );
+				$('.dropdow-nav li.level0 > .touch-button').click(function(){
+					$('.dropdow-nav li > ul').slideUp(speed);
+					$(this).prev().slideToggle(speed);
+					$('.dropdow-nav li > .touch-button').css({'display':'block'});
+					$('.dropdow-nav li > .touch-hidden').css({'display':'none'});
+					//$(this).toggleClass('change');
+					$(this).prev().prev().toggleClass('parentNote');
+					$(this).next('.touch-hidden').css({'display':'block'});
+					$(this).css({'display':'none'});
+				});
+				
+				$('.dropdow-nav li.level0 > .touch-hidden').click(function(){
+					$(this).prev().prev().slideUp(speed);
+					$(this).css({'display':'none'});
+					$(this).prev('.touch-button').css({'display':'block'});
+				});
+ */
+
+			//xóa 3 item cuối cùng(blog, contact, about)
+			/* for(var i=1;i<=3;i++){
+				$('.dropdow-nav > li:last-child').remove();
+			} */
+		});
+	</script>

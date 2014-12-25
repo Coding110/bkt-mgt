@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <venderadmin_adminhtml_menugroup_index>
+        <reference name="content">
+            <block type="venderadmin/adminhtml_menugroup" name="menu.group" />
+        </reference>
+    </venderadmin_adminhtml_menugroup_index>
+    <venderadmin_adminhtml_menuitems_index>
+        <reference name="content">
+            <block type="venderadmin/adminhtml_menuitems" name="menu.items" />
+        </reference>
+    </venderadmin_adminhtml_menuitems_index>	
+	<venderadmin_adminhtml_menugroup_edit>
+	   <update handle="editor"/>
+	</venderadmin_adminhtml_menugroup_edit> 	
+	<venderadmin_adminhtml_menugroup_new>
+	   <update handle="editor"/>
+	</venderadmin_adminhtml_menugroup_new> 
+	<venderadmin_adminhtml_menuitems_edit>
+	   <update handle="editor"/>
+	</venderadmin_adminhtml_menuitems_edit> 	
+	<venderadmin_adminhtml_menuitems_new>
+	   <update handle="editor"/>
+	</venderadmin_adminhtml_menugroup_index> 	
+</layout>

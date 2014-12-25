@@ -1,0 +1,125 @@
+
+							
+			<li class="fields">
+				<div class="field">
+					<label for="region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+					<div class="input-box">
+						<select id="region_id" name="region_id"
+							title="<?php echo $this->__('State/Province') ?>"
+							class="validate-select" style="display: none;width:230px;">
+							<option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+						</select>
+						<script type="text/javascript">
+                        //<![CDATA[
+                            $('region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
+                        //]]>
+                        </script>
+						<input type="text" id="region" name="region"
+							value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"
+							title="<?php echo $this->__('State/Province') ?>"
+							class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" />
+					</div>
+				</div>
+				<div class="field">
+					<label for="city_id" class="required"><em>*</em><?php echo $this->__('City') ?>fefefe</label>
+					<div class="input-box">
+						<select id="city_id" name="city_id"
+							title="<?php echo $this->__('City') ?>" class="validate-select"
+							style="display: none;width:230px;">
+							<option value=""><?php echo $this->__('请选择城市') ?></option>
+						</select>
+						<script type="text/javascript">
+                        //<![CDATA[
+                            $('city_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getCityId() ?>");
+                        //]]>
+                        </script>
+						<input type="text" id="city" name="city"
+							value="<?php echo $this->escapeHtml($this->getAddress()->getCity()) ?>"
+							title="<?php echo $this->__('City') ?>"
+							class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('city') ?>" />
+					</div>
+				</div>
+			</li>
+
+			<li>
+
+				<div class="field">
+					<label for="district_id" class="required"><?php echo $this->__('县/街') ?></label>
+					<div class="input-box">
+						<select id="district_id" name="district_id"
+							title="<?php echo $this->__('县/街') ?>" class="validate-select"
+							style="display: none;width:230px;">
+							<option value="" ><?php echo $this->__('请选择县/街') ?></option>
+						</select>
+						<script type="text/javascript">
+                        //<![CDATA[
+                            $('district_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getDistrictId() ?>");
+                        //]]>
+                        </script>
+						<input type="text" id="district" name="district"
+							value="<?php echo $this->escapeHtml($this->getAddress()->getdistrict()) ?>"
+							title="<?php echo $this->__('县/街') ?>"
+							class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('district') ?>" />
+					</div>
+				</div>
+				
+				<div class="field" style="display: none;">
+					<label for="country" class="required"><em>*</em>国家</label>
+					<div class="input-box">
+                        <select name="country_id" id="country" class="validate-select" title="国家" ><option value="" > </option><option value="CN" selected="selected" >中国</option></select>                    </div>
+				</div>
+
+			</li>
+			
+			
+			        <li class="fields">
+				<div class="field">
+					<label for="zip" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+					<div class="input-box">
+						<input type="text" name="postcode"
+							value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>"
+							title="<?php echo $this->__('Zip/Postal Code') ?>" id="zip"
+							class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
+					</div>
+				</div>
+				
+				
+				
+			</li>
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+						
+
+
+<script>
+	$MW_Onestepcheckout(function(){
+			$MW_Onestepcheckout("#shipping\\:street1").css('width','245px');
+			$MW_Onestepcheckout("#shipping\\:street2").css('width','245px');
+	});
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+           	
+           
+        	    var shippingRegionUpdater = new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+        	    var shippingCityUpdater = new RegionUpdater('region_id', 'city', 'city_id', <?php echo $this->helper('directoryex')->getCityJson() ?>, undefined, 'postcode');
+        		var shippingDistrictUpdater = new RegionUpdater('city_id', 'district', 'district_id', <?php echo $this->helper('directoryex')->getDistrictJson() ?>, undefined, 'postcode');
+        		shippingRegionUpdater.setChildUpdater(shippingCityUpdater);
+        		shippingCityUpdater.setChildUpdater(shippingDistrictUpdater); 
+               
+  
+//]]>
+</script>

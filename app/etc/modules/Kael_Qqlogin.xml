@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+     <modules>
+        <Kael_Qqlogin>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Kael_Qqlogin>
+     </modules>
+</config> 

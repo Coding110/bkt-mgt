@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bkt_Printimages>
+            <version>0.1.0</version>
+        </Bkt_Printimages>
+    </modules>
+
+	<global>
+
+        <events>
+            <catalog_product_prepare_save>
+                <observers>
+                    <Bkt_printimages_model_observer>
+                        <type>singleton</type>
+						<class>Bkt_Printimages_Model_Observer</class>
+                        <method>AddCoustomOptionToProduct</method>
+                    </Bkt_printimages_model_observer>
+                </observers>
+            </catalog_product_prepare_save>
+        </events>
+
+        <events>
+            <catalog_product_new_action>
+                <observers>
+                    <Bkt_printimages_model_observer>
+                        <type>singleton</type>
+						<class>Bkt_Printimages_Model_Observer</class>
+                        <method>setAttributeValueAuto</method>
+                    </Bkt_printimages_model_observer>
+                </observers>
+            </catalog_product_new_action>
+        </events>
+
+        <events>
+            <adminhtml_catalog_product_edit_prepare_form>
+                <observers>
+                    <Bkt_printimages_model_observer>
+                        <type>singleton</type>
+						<class>Bkt_Printimages_Model_Observer</class>
+                        <method>setAttributeHtmlValueAuto</method>
+                    </Bkt_printimages_model_observer>
+                </observers>
+            </adminhtml_catalog_product_edit_prepare_form>
+        </events>
+
+	</global>
+</config>

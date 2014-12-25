@@ -1,0 +1,170 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Extraslider - Version 1.1
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+
+	$options = $this->getConfigObject();
+	$smarthelper= Mage::helper('extraslider/utils');
+	$items = $this->getProducts();
+	$count_item = count($items);
+	$item_of_page = $options->num_rows * $options->num_cols;
+	$suffix = rand().time();
+	$tag_id = 'sjextraslider_'.$suffix;	
+	
+
+	if(!empty($items)){
+	echo $this->getScriptTags();?>
+    <div id="<?php echo $tag_id;?>" class="block-left sj-extraslider <?php if( $options->effect == 'slide' ){ echo $options->effect;}?> preset02-<?php echo $options->num_cols; ?>" data-start-jcarousel='1'>
+        <?php if($options->title_slider_display == 1){?>
+			<div class="title-home">
+				<h2><?php echo $options->title_slider;?></h2>
+			</div>
+			<div class="des-home"> Lorem ipsum dolor sit amet, consectetur adipiscing elit egestas nunc eu venenatis vehicula </div>
+            <!--<div class="title-header heading-title"><?php echo $options->title_slider;?></div>-->
+        <?php }?>		    
+    	<div class="extraslider-control  <?php if( $options->button_page == 'under' ){echo 'button-type2';}?>">
+		    <!-- a class="button-prev" href="<?php //echo '#'.$tag_id;?>" data-jslide="prev"></a-->
+		    <?php if( $options->button_page == 'top' ){?>
+		    <ul class="nav-page">
+		    <?php $j = 0;$page = 0;
+		    	foreach ($items as $item){$j ++;
+				$active_class = $page == 0 ? " active" : "";
+		    		if( $j%$item_of_page == 1 || $item_of_page == 1 ){$page ++;?>
+		    		<li class="page">
+		    			<a class="button-page <?php if( $page==1 ){echo 'sel';}?>" href="<?php echo '#'.$tag_id;?>" data-jslide="<?php echo $page-1;?>"></a>
+		    		</li>
+	    		<?php }}?>
+		    </ul>
+		    <?php }?>
+		    <!-- a class="button-next" href="<?php //echo '#'.$tag_id;?>" data-jslide="next"></a-->
+	    </div>
+	    <div class="extraslider-inner">
+	    <?php $count = 0; $i = 0; $row=1;
+		
+	    foreach($items as $item){$count ++; $i++;?>
+			<?php
+				$_product=Mage::getModel('catalog/product')->load($item['id']);
+			?>
+            <?php if($count%$item_of_page == 1 || $item_of_page == 1){?>
+            <div class="item <?php if($i==1){echo "active";}?>">
+            <?php }?>
+				
+                <?php if($count%$options->num_cols == 1 || $options->num_cols == 1 ){?>
+				<?php $a=1;?>
+				
+                <div class="line row<?php echo $row++;?>">
+                <?php }?>  
+					
+				    <div class="item-wrap column<?php echo $a++; ?> <?php echo $options->theme; if($count%$options->num_cols == 0 || $count== $count_item && $options->num_cols !=1){echo " last";}?> ">
+				    	<div class="item-image">
+							<a href="<?php echo $item['link'];?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";>
+								<img src="<?php echo $item['image'];?>" alt="<?php echo $item['title']; ?>" title="<?php echo $item['title']; ?>" />	    				
+							</a>
+						</div>
+			    	<?php if( $options->item_title_display == 1 || $options->item_desc_display == 1 || $options->item_readmore_display == 1 ){?>
+				    	<div class="item-info">
+							<div class="info-wrapper">
+							<div class="img-info">
+								<a title="<?php echo $item['title'];?>" href="<?php echo $item['link'];?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";>
+									<img src="<?php echo $item['image'];?>" alt="<?php echo $item['title']; ?>" title="<?php echo $item['title']; ?>" />	    				
+								</a>
+							</div>
+							
+							<div class="dt-product">
+							<?php if( $options->item_title_display == 1 ){?>
+								<div class="item-title">
+									<a title="<?php echo $item['title'];?>" href="<?php echo $item['link'];?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";>
+										<?php echo $item['title'];?>
+									</a>    			     
+								</div>
+							<?php }?>
+							<?php if( ($options->item_desc_display == 1 && !empty($item['desc'])) || $options->item_readmore_display == 1 || $options->item_review_disp || $options->item_price_disp ){?>
+								<div class="item-content">
+								<?php if( (int)$options->item_price_disp ){ ?>
+									<div class="item-price">
+										<div class="sale-price">
+										<?php echo $item['price'];?>
+										</div>
+									</div>
+								<?php }?>
+								
+								<?php if( $options->item_desc_display == 1 ){?>
+									<div class="item-description">
+										<?php echo $item['desc'];?>
+									</div>
+								<?php }?>
+								<?php if( $options->item_readmore_display == 1 ){?>
+									
+										<a href="<?php echo $item['link'];?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";>
+											<?php echo $options->item_readmore_text;?>
+										</a>                                
+									
+								<?php }?>  
+								<?php if($options->item_review_disp == 1){ ?>
+									<div class="item-review">
+										<?php echo $item['review']; ?>
+									</div><!--end item-review-->
+								<?php }	?>
+			
+								<div class="item-addto-wrap">
+									
+									<div class="button-action item-addcart">
+										<a class="btn-cart" title="<?php echo $this->__('Add to Cart') ?>" href="javascript:void(0);" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')">
+											<?php echo $this->__('Add to Cart') ?>
+										</a>
+									</div>
+									
+									<?php $_compareUrl=$this->getAddToCompareUrl($_product); ?>
+									<div class="button-action item-compare">
+										<a href="<?php echo $_compareUrl ?>"><?php echo $this->__('Add to Compare') ?></a>
+									</div>
+									<div class="button-action item-wishlist">
+										<a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"><?php echo $this->__('Add to Wishlist') ?></a>
+									</div>
+									
+									
+								</div>	
+								
+								
+								</div>
+							<?php }?>
+								
+							</div>
+							<div style="clear:both;"></div>
+							</div>
+				    	</div>
+			    	<?php }?>
+				    </div>                
+                 
+                <?php if($count%$options->num_cols == 0 || $count== $count_item){?>    
+                </div><!--line-->
+                <?php } ?>		    		
+            <?php if(($count%$item_of_page == 0 || $count== $count_item)){?>    
+            </div><!--end item--> 
+			<?php $row=1;?>
+            <?php }?>
+	    <?php }?>
+	    </div><!--end extraslider-inner -->
+	    <?php if( $options->button_page == 'under' ){?>
+		<div class="extraslider-control-under">
+			<ul class="nav-page nav-under">
+			<?php $j = 0;$page = 0;
+				foreach ($items as $item){$j ++;
+				$active_class = $page == 0 ? " active" : "";
+					if( $j%$item_of_page == 1 || $item_of_page == 1 ){$page ++;?>
+					<li class="page">
+						<a class="button-page <?php if( $page==1 ){echo 'sel';}?>" href="<?php echo '#'.$tag_id;?>" data-jslide="<?php echo $page-1;?>"></a>
+					</li>
+				<?php }}?>
+			</ul>
+		</div>
+	    <?php }?>	    
+    </div>
+<?php }else{ echo $this->__('Has no item to show!');}?>
+
+
+

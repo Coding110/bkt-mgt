@@ -1,0 +1,79 @@
+<?php
+/**
+<!-- hellokeykey.com magentokey.com chinamagento.org -->
+**/
+ ?>
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?php echo $this->__('添加中国省市地址')?></h3></td>
+            <td class="a-right">
+                <button onclick="editForm.submit()" class="scalable save" type="button"><span><?php echo $this->__('添加')?></span></button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="entry-edit">
+    <form id="edit_form" name="edit_form" method="post" action="<?php echo $this->getUrl('*/*/add')?>">
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" />
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $this->__('请填写中国的省市代码和省市名称，例如添加北京，省市编码=BJ(请用两位大写字母作为编码)，省市名称=北京。')?></h4>
+        <fieldset id="my-fieldset">
+            <table cellspacing="0" class="form-list">
+                <tr>
+                    <td class="label"><?php echo $this->__('省市编码')?> <span class="required">*</span></td>
+                    <td class="input-ele"><input class="input-text required-entry validate-alpha" name="RegionCode" /></td>
+                </tr>
+				 <tr>
+                    <td class="label"><?php echo $this->__('省市名称')?> <span class="required">*</span></td>
+                    <td class="input-ele"><input class="input-text required-entry" name="RegionName" /></td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+</div>
+
+<?php $regionCollection = Mage::getModel('directory/region_api')->items('CN'); ?>
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?php echo $this->__('已有省市地址列表')?></h3></td>
+            <td class="a-right">
+               
+            </td>
+        </tr>
+    </table>
+</div>
+<style type="text/css">
+.list-for-region li { float:left; margin-left:10px;}
+</style>
+<ul class="list-for-region">
+<?php foreach($regionCollection as $region) {
+
+echo "<li>".$region['name']."</li>";
+
+}
+?>
+</ul>
+<div class="clear"></div>
+<div class="content-header" style="margin-top:15px;">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?php echo $this->__('友情链接')?></h3></td>
+            <td class="a-right">
+               
+            </td>
+        </tr>
+    </table>
+</div>
+<ul>
+<li><h3>插件制作者：钥匙 <a href="http://www.hellokeykey.com/" target="_blank">hellokeykey.com</a></h3></li>
+<li><h3>欢迎大家加入中文magento论坛 <a href="http://www.chinamagento.org/" target="_blank">chinamagento.org</a></a></li>
+</ul>
+
+
+
+
+<script type="text/javascript">
+    var editForm = new varienForm('edit_form');
+	
+</script>

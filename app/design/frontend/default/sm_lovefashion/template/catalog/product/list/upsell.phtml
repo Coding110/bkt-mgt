@@ -1,0 +1,206 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php 
+if(!defined('SM_SLIDER')){
+	define('SM_SLIDER', 1);
+?>
+	<!--<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/sm-slider.js') ?>"></script>-->
+<?php
+}
+?>
+<?php if(count($this->getItemCollection()->getItems())): ?>
+<!--<h2><?php echo $this->__('You may also be interested in the following product(s)') ?></h2>-->
+<div class="container-slider-detail slider-upsell">
+	<div class="page-title category-title">
+		<h1><?php echo $this->__('Up-sell products');?></h1>
+		<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('upsell-description')->toHtml(); ?>
+	</div>
+	
+	<div class="block-content">
+		
+		<div class="page-button top style">
+            <ul class="control-button">
+                <li class="prev_upsell"><i></i>Prev</li>
+                <li class="next_upsell"><i></i>Next</li>
+            </ul>		
+        </div>
+		
+		<div class="container-slider">
+		<div id="box-up-sell" class="slider cols-6 preset01-4 preset01-3 preset02-3 preset03-2 preset04-1 preset05-1 js-loaded">
+			<div class="vpo-wrap">
+			<div class="vp">
+			<div class="vpi-wrap">
+			
+			<?php // $this->setColumnCount(5); // uncomment this line if you want to have another number of columns. also can be changed in layout ?>
+			<?php $this->resetItemsIterator() ?>
+			<?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
+				
+				<?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
+					<?php if($_link=$this->getIterableItem()): 
+						
+						
+						$now = date("Y-m-d H:m:s");
+						$newsFrom= $_link->getNewsFromDate(); //substr($_product->getData('news_from_date'),0,10);
+						$newsTo= $_link->getNewsToDate();   //substr($_product->getData('news_to_date'),0,10);
+
+						$specialprice = Mage::getModel('catalog/product')->load($_link->getId())->getSpecialPrice();
+					?>
+					<div class="item respl-item">
+						<div class="item-inner">
+							<div class="w-image-box">	
+								<div class="item-image">
+									<?php $_media = Mage::getModel('catalog/product')->load($_link->getId())->getMediaGalleryImages() ?>	
+									<?php $count_item=0; $check_img=0;?>	
+									<?php $check_img = count($_media);?>
+									<a class="<?php if ($check_img >= 2) echo $this->__('rspl-image');?>" href="<?php echo $_link->getProductUrl() ?>" title="<?php echo $this->escapeHtml($_link->getName()) ?>" class="product-image">
+
+										<img class="first_image" src="<?php echo $this->helper('catalog/image')->init($_link, 'small_image')->resize(270); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_link, 'small_image'), null, true) ?>" /> 
+
+										<?php if ($check_img >= 2): ?>
+											<?php 
+											$flag=0;
+											foreach($_media as $_img): ?>
+													<?php $count_item++;?>
+													<?php if ($_img->getFile() == $_link->getSmallImage()){
+														if($count_item==$check_img){
+															$flag = 0;
+														}else{
+															$flag = 1;
+														}
+														continue;
+													}  ?>
+													<?php if($flag==1) { ?>
+													<img class="last_image" src="<?php echo $this->helper('catalog/image')->init($_link, 'image', $_img->getFile())->constrainOnly(true)->keepAspectRatio(true)->keepFrame(false)->resize(270); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true); ?>" />
+													<?php  break; }?>
+											<?php endforeach; ?>
+											<?php 
+												if($flag==0){
+													foreach($_media as $_img){ ?>
+													 <img class="last_image" src="<?php echo $this->helper('catalog/image')->init($_link, 'image', $_img->getFile())->constrainOnly(true)->keepAspectRatio(true)->keepFrame(false)->resize(270); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true); ?>" />
+												<?php break; }
+												}
+											?>
+										<?php endif?>
+									<!--END SHOW 2 IMAGE FOR PRODUCTS-->   
+									</a>
+								</div>
+								<?php if ($newsFrom !="" && $now>=$newsFrom && ($now<=$newsTo || $newsTo=="")){?>
+									<div class="new-product">
+										<?php echo $this->__('New'); ?>
+									</div>
+								<?php }?>
+								<?php if (($specialprice && ($special_from_date <= $now) && ($special_to_date >= $now || $special_to_date =="" ))){
+									//echo "<span class='saleoff-grid'>sale off</span>"; ?>
+									<div class='sale-item'>
+										<?php echo $this->__('Sale'); ?>
+									</div>
+								<?php }?>
+							</div>
+							<div class="item-info">
+								<div class="item-title ">
+									<a href="<?php echo $_link->getProductUrl() ?>"><?php echo $this->htmlEscape($_link->getName()) ?></a>
+								</div>
+								<div class="item-review">
+										<?php  echo $this->getReviewsSummaryHtml($_link, "short", true); ?>
+								</div>
+								<div class="item-price">
+									<?php echo $this->getPriceHtml($_link, true) ?>
+								</div>
+								<!--
+								<div class="item-desc">
+									<?php echo substr($_link['short_description'],0,70);?>
+								</div>
+								-->
+								<div class="item-addto-wrap">
+									<div class="button-action item-addcart">
+										<?php if($_link->isSaleable()): ?>
+											<a title="<?php echo $this->__('Add to Cart') ?>" href="javascript:void(0);" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_link) ?>')">
+												<?php echo $this->__('Add to Cart') ?>
+											</a>
+										<?php else: ?>
+											<span class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></span>
+										<?php endif; ?>
+										
+										<?php if($_compareUrl=$this->getAddToCompareUrl($_link)): ?>
+											<a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a>
+										<?php endif; ?>
+										<?php if ( $this->helper('wishlist')->isAllow() ) : ?>
+										<a href="<?php echo $this->helper('wishlist')->getAddUrl($_link) ?>" class="link-wishlist">
+											<?php echo $this->__('Add to Wishlist') ?>
+										</a>
+										<?php endif; ?>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<?php else: ?>
+					<div class="empty">&nbsp;</div>
+					<?php endif; ?>
+				<?php endfor; ?>
+				
+			<?php endfor; ?>
+			<!--<script type="text/javascript">decorateTable('upsell-product-table')</script>-->
+			
+			</div>
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	
+</div>
+<script>
+	$jsmart(document).ready(function($){
+        $('#box-up-sell').responsiver({
+            interval: 0,
+			speed: 300,
+			start: 0,
+			step: 1,
+			circular: true,
+			preload: true,
+			fx: 'slide',
+			pause: 'hover',
+			control:{
+			prev: '.control-button li[class="prev_upsell"]',
+			next: '.control-button li[class="next_upsell"]'
+			},
+			getColumns: function(element){
+			var match = $(element).attr('class').match(/cols-(\d+)/);
+			if (match[1]){
+			var column = parseInt(match[1]);
+			} else {
+			var column = 1;
+			}
+			if (!column) column = 1;
+			return column;
+			}
+        });
+    });
+</script>
+<?php endif ?>

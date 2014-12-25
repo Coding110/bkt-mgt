@@ -1,0 +1,113 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+
+global $var_yttheme;
+?>
+<!DOCTYPE html>
+<html xml:lang="<?php echo $this->getLang() ?>" lang="<?php echo $this->getLang() ?>">
+<head>
+<meta name="format-detection" content="telephone=no">
+	<?php echo $this->getChildHtml('head') ?>
+</head>
+<?php // die($var_yttheme->getParam('layoutstyle'));?>
+<body id="bd" class="<?php echo $var_yttheme->template ?> <?php if( $var_yttheme->getParam('layoutstyle') == 'fixed' ){echo "layout-boxed";}?> <?php if( $var_yttheme->getParam('layoutstyle') == '2' ){echo "layout-boxed";}?> <?php echo $this->getBodyClass();?>">
+<?php echo $this->getChildHtml('after_body_start') ?>
+    <div id="yt_wrapper">
+    
+        <!-- BEGIN: Header -->
+		<div id="yt_header" class="yt-header wrap">
+		     <?php echo $this->getChildHtml('header') ?>
+		</div>
+		<!-- END: Header -->
+		
+		<!-- BEGIN: content -->
+        <div id="yt_content" class="yt-content wrap">
+			
+        	<?php echo $this->getChildHtml('breadcrumbs') ?>
+        	
+        	<div id="yt_main" class="yt-main col-main <?php if( $this->getChildHtml('slideshow') ){echo "yt-main-home"; }?>">
+        		<div class="yt_main_inner yt-content-inner">
+					<div class="container">
+						<div class="row">
+							<div class="">
+								<div class="col-md-12">
+									<?php echo $this->getChildHtml('global_notices') ?>
+									<?php echo $this->getChildHtml('global_messages') ?>
+								</div>
+								
+								<?php if( Mage::getSingleton('cms/page')->getIdentifier() == 'home'  && 
+								Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' ) { /* if is home page */
+								
+									include (dirname(__FILE__).'/home-default.phtml');
+									
+								} elseif( Mage::getSingleton('cms/page')->getIdentifier() == 'home-v1'  && 
+								Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' ) {
+								
+									include (dirname(__FILE__).'/home-v1.phtml');	
+									
+								} else{ ?>
+									<div class="col-md-12">
+										<?php echo $this->getChildHtml('content'); ?>
+									</div>
+								<?php }?>
+							</div>
+						</div>
+					</div>
+					
+					<?php if( Mage::getSingleton('cms/page')->getIdentifier() == 'home-v2'  && 
+					Mage::app()->getFrontController()->getRequest()->getRouteName() == 'cms' ) {
+					
+						include (dirname(__FILE__).'/home-v2.phtml');
+									
+					}?>
+						
+        		</div>
+				
+				
+        	</div>
+         </div>      
+        <!-- END: content -->
+        
+        <!-- BEGIN: footer -->
+        <div id="yt_footer" class="yt-footer wrap">
+        	<?php echo $this->getChildHtml('footer') ?>
+        </div>
+        <!-- END: footer -->
+        
+		<?php echo $this->getChildHtml('before_body_end') ?>
+        <?php echo $this->getAbsoluteFooter() ?>
+    </div>
+    <?php $homep = Mage::getSingleton('cms/page')->getIdentifier(); ?>
+	<?php 
+	if( $homep=='home' && $var_yttheme->getParam('showpopup') == 1 ){
+		echo $this->getChildHtml('popup-newsletter');
+	}
+	?>
+	
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('social-fixed')->toHtml(); ?>
+</body>
+</html>

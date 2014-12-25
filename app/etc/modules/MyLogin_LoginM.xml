@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MyLogin_LoginM>
+            <active>false</active>
+            <codePool>local</codePool>
+        </MyLogin_LoginM>
+    </modules>
+     <frontend>
+        <routers>
+            <loginm>
+                <use>standard</use>
+                <args>
+                    <module>MyLogin_LoginM</module>
+                    <frontName>helloLogin</frontName>
+                </args>
+            </loginm>
+        </routers>
+      
+    
+    </frontend>
+</config>

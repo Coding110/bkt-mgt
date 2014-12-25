@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hellokeykey_Regioneditor>
+            <version>0.1.0</version>
+        </Hellokeykey_Regioneditor>
+    </modules>
+
+    <admin>
+        <routers>
+			<regioneditor>
+				<use>admin</use>
+				<args>
+					<module>Hellokeykey_Regioneditor</module>
+					<frontName>regioneditor</frontName>
+				</args>
+			</regioneditor>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<regioneditor module="regioneditor">
+				<title>中国地址编辑</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<items1 module="regioneditor">
+						<title>添加省市地址</title>
+						<sort_order>1</sort_order>
+						<action>regioneditor/adminhtml_Add</action>
+					</items1>
+					
+					<items2 module="regioneditor">
+						<title>删除省市地址</title>
+						<sort_order>2</sort_order>
+						<action>regioneditor/adminhtml_Delect</action>
+					</items2>
+					
+					
+				</children>
+			</regioneditor>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<Hellokeykey_Regioneditor>
+							<title>Regioneditor Module</title>
+							<sort_order>10</sort_order>
+						</Hellokeykey_Regioneditor>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<regioneditor>
+					<file>regioneditor.xml</file>
+				</regioneditor>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <regioneditor>
+                <class>Hellokeykey_Regioneditor_Model</class>
+                <resourceModel>regioneditor_mysql4</resourceModel>
+            </regioneditor>
+            <regioneditor_mysql4>
+                <class>Hellokeykey_Regioneditor_Model_Mysql4</class>
+            </regioneditor_mysql4>
+        </models>
+        <blocks>
+            <regioneditor>
+                <class>Hellokeykey_Regioneditor_Block_Adminhtml</class>
+            </regioneditor>
+        </blocks>
+        <helpers>
+            <regioneditor>
+                <class>Hellokeykey_Regioneditor_Helper</class>
+            </regioneditor>
+        </helpers>
+    </global>
+</config>
