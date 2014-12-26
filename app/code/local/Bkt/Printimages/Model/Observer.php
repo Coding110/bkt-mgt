@@ -68,10 +68,10 @@ class Bkt_Printimages_Model_Observer{
 			$attr_opts = Mage::getModel('eav/entity_attribute_source_table');
 			$attr_table = $attr_opts->setAttribute($attr);
 			$opts = $attr_opts->getAllOptions(true);
-			unset($opts[0]);
-			unset($opts[2]);
-			unset($opts[3]);
-			var_dump($opts);
+			//unset($opts[0]);
+			//unset($opts[2]);
+			//unset($opts[3]);
+			//var_dump($opts);
 		}
 	}
 }
