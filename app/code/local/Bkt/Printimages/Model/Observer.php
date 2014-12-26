@@ -52,10 +52,9 @@ class Bkt_Printimages_Model_Observer{
 
 	public function setAttributeValueAuto($observer){
 		//Mage::log('[bktlog] catalog_product_new_action');
-
-
+		
 		$event = $observer->getEvent();
-    	$product = $event->getProduct();
+		$product = $event->getProduct();
 		Mage::log('[bktlog] New product type: '.$product->getTypeID());
 		if($product->getTypeID() == "simple"){
 			$added_by = "added_by";
@@ -65,18 +64,15 @@ class Bkt_Printimages_Model_Observer{
 			Mage::log('[bktlog] Attribute \''.$added_by.'\': '.$attr_id.', type: '.$product->getTypeID());
 			$data = array();
 			//var_dump($attr);
-
+			
 			$attr_opts = Mage::getModel('eav/entity_attribute_source_table');
 			$attr_table = $attr_opts->setAttribute($attr);
-			$opts = $attr_opts->getAllOptions(false);
+			$opts = $attr_opts->getAllOptions(true);
+			unset($opts[0]);
+			unset($opts[2]);
+			unset($opts[3]);
 			var_dump($opts);
 		}
-	}
-
-	public function setAttributeHtmlValueAuto($observer){
-		//Mage::log('[bktlog] adminhtml_block_eav_attribute_edit_form_init');
-		//var_dump($observer->getLayout());
-
 	}
 }
 

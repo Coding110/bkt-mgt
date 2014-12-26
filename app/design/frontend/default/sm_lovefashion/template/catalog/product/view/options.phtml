@@ -187,7 +187,11 @@
     </script>
     <dl>
     <?php foreach($_options as $_option): ?>
+		<?php if($_option['title'] == "print_images_path"): ?>
+		<div class="w-option <?php echo $_option['title'];?>" id=<?php echo $_option['title'];?> style="display:none;">
+		<?php else: ?>
 		<div class="w-option">
+		<?php endif; ?>
         <?php  echo $this->getOptionHtml($_option) ?>
 		</div>
     <?php endforeach; ?>
