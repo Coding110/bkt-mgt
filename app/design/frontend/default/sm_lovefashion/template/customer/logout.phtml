@@ -24,6 +24,14 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php
+// 检查登陆
+if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlockSingleton('page/html')->getBodyClass(),'catalog-product-view'))  
+{  
+	$session = Mage::getSingleton("customer/session");
+	$session->setBeforeAuthUrl(Mage::helper("core/url"));
+ }  
+?>
 <p class="logout-content"><?php echo Mage::helper('customer')->__('You are now logged out') ?></p>
 <p class="logout-content"><?php echo Mage::helper('customer')->__('You have logged out and will be redirected to our homepage in 5 seconds.') ?></p>
 <script type="text/javascript">

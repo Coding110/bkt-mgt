@@ -339,7 +339,8 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 									jQuery_1_7_2('#image_up').uploadify({
 											 'auto' : false,
 											'formData'     : {
-												'category' : 35
+												'category' : 35,
+												'author'	: '<?php $customer = Mage::getSingleton('customer/session')->getCustomer();echo $customer->getEmail(); ?>'
 											},
 											'swf'      : '<?php echo $this->getSkinUrl('swf/uploadify.swf') ?>',
 											'uploader' : 'http://www.becktu.com/ws.php?method=pwg.images.addSimple&format=json',
@@ -353,7 +354,7 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 												if(imgIds.length>0){
 													jQuery_1_7_2('#'+tvalue).val(imgIds+":"+res.result.image_id);
 												}else{
-													jQuery_1_7_2('#'+tvalue).val(res.result.image_id);
+													jQuery_1_7_2('#'+tvalue).val(res.result.image_id+";"+imgIds);
 												}
 
 												 jQuery_1_7_2('#addtocartds').css('display',"none");
@@ -380,7 +381,7 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 										data: {method : "pwg.images.archive", imageids : imgIds},
 										dataType: 'jsonp' ,
 										success : function(data, textStatus){										
-												jQuery_1_7_2('#'+tvalue).val(data.result.images+";"+imgIds);
+												jQuery_1_7_2('#'+tvalue).val(data.result.images);
 											
 										}
 									
@@ -394,6 +395,7 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 										<?php else:?>
 											window.location.href="/index.php/customer/account/login/";
 										<?php endif; ?>
+				
 									}
 									function closeme(){
 										document.getElementById('cat_dlg_1').style.display='none';

@@ -7,6 +7,7 @@ function updateShippingMethod()
 {
 	urls= '<?php echo Mage::getUrl('onestepcheckout/index/updateshippingmethod') ?>';
 
+
 	$MW_Onestepcheckout('#message-box').html('');
 	$MW_Onestepcheckout('.btn-checkout').attr('disabled','disabled');
 	$MW_Onestepcheckout('#loading-mask').css('display','block');
@@ -15,6 +16,8 @@ function updateShippingMethod()
 	   url: urls,
 	   data: "shipping_method="+$MW_Onestepcheckout('input[name=shipping_method]:checked').val(),
 	   success: function(msg){
+
+		 
 		$MW_Onestepcheckout('#checkout-review-load').html(msg);
 		$MW_Onestepcheckout('#loading-mask').css('display','none');
 		$MW_Onestepcheckout('.btn-checkout').removeAttr('disabled');
@@ -178,6 +181,7 @@ $MW_Onestepcheckout(function(){
 	   url:"<?php echo Mage::getUrl('onestepcheckout/index/updateshippingmethod')?>",
 	   data: "shipping_method="+$MW_Onestepcheckout('input[name=shipping_method]:checked').val(),
 	   success: function(msg){
+		
 		$MW_Onestepcheckout('#checkout-review-load').html(msg);
 		
 	   }
@@ -189,6 +193,7 @@ $MW_Onestepcheckout(function(){
 		   url: "<?php echo Mage::getUrl('onestepcheckout/index/updatepaymentmethod')?>",
 		   data: "payment%5Bmethod%5D="+value,
 		   success: function(msg){
+			   
 			if(msg.search("<script")!=0){
 			$MW_Onestepcheckout('#checkout-review-load').html(msg);
 			}

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bkt_Printimages>
+            <version>0.1.0</version>
+        </Bkt_Printimages>
+    </modules>
+
+	<global>
+        <models>
+        	<Bkt_Printimages>
+            	<class>Bkt_Printimages_Model_Observer</class>
+       		</Bkt_Printimages>
+        </models>
+    </global>
+
+	<adminhtml>
+        <events>
+            <catalog_product_save_after>
+                <observers>
+                    <Bkt_Printimages_model_observer>
+                        <type>singleton</type>
+                        <class>Bkt_Printimages_Model_Observer</class>
+                        <method>AddCoustomOptionToProduct</method>
+                    </Bkt_Printimages_model_observer>
+                </observers>
+            </catalog_product_save_after>
+        </events>
+	</adminhtml>
+</config>

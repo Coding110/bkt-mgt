@@ -31,6 +31,7 @@
         <?php if($_options = $this->getItemOptions()): ?>
         <dl class="item-options">
         <?php foreach ($_options as $_option) : ?>
+			<?php if($_options['title'] == 'print_images_path'): ?><?php continue: ?><?php endif; ?>
             <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
             <?php if (!$this->getPrintStatus()): ?>
                 <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>

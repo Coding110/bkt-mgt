@@ -127,6 +127,7 @@
           <div class="truncated_full_value">
             <dl class="item-options">
                 <?php foreach ($_options as $_option) : ?>
+				<?php if($_options['title'] == 'print_images_path'): ?><?php continue; ?><?php endif; ?>
                 <dt><?php echo $this->escapeHtml($_option['label']) ?></dt>
                 <dd>
                     <?php if (is_array($_option['value'])): ?>
