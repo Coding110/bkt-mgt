@@ -34,6 +34,7 @@
           <p><?php echo $this->__('Options Details'); ?></p>
           <dl>
               <?php foreach ($options as $option): ?>
+			  <?php $lb = trim($this->htmlEscape($_option['label'])); if($lb == "print_images_path"): ?><?php continue; ?><?php endif; ?>
               <dt><?php echo $this->escapeHtml($option['label']) ?></dt>
               <dd>
                   <?php if (is_array($option['value'])): ?>

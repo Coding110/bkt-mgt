@@ -288,12 +288,91 @@ class MW_Onestepcheckout_IndexController extends Mage_Checkout_OnepageController
 					 return;        			
         		}	
 	}
+
     public function saveShipping($data, $customerAddressId)
     {
+        if (empty($data)) {
+            return array('error' => -1, 'message' => Mage::helper('checkout')->__('Invalid data.'));
+        }
+        $address = $this->getQuote()->getShippingAddress();
+
+        /* @var $addressForm Mage_Customer_Model_Form */
+        $addressForm    = Mage::getModel('customer/form');
+        $addressForm->setFormCode('customer_address_edit')
+            ->setEntityType('customer_address')
+            ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
+
+        if (!empty($customerAddressId)) {
+            $customerAddress = Mage::getModel('customer/address')->load($customerAddressId);
+            if ($customerAddress->getId()) {
+                if ($customerAddress->getCustomerId() != $this->getQuote()->getCustomerId()) {
+           			//echo "<div>Error 1</div>"; 
+                    return array('error' => 1,
+                        'message' => Mage::helper('checkout')->__('Customer Address is not valid.')
+                    );
+                }
+
+                $address->importCustomerAddress($customerAddress)->setSaveInAddressBook(0);
+                $addressForm->setEntity($address);
+                $addressErrors  = $addressForm->validateData($address->getData());
+                if ($addressErrors !== true) {
+           			//echo "<div>Error 2</div>"; 
+                    return array('error' => 1, 'message' => $addressErrors);
+                }
+            }
+        } else {
+            $addressForm->setEntity($address);
+            // emulate request object
+            $addressData    = $addressForm->extractData($addressForm->prepareRequest($data));
+            $addressErrors  = $addressForm->validateData($addressData);
+            if ($addressErrors !== true) {
+           			//echo "<div>Error 3</div>"; 
+                return array('error' => 1, 'message' => $addressErrors);
+            }
+            $addressForm->compactData($addressData);
+            // unset shipping address attributes which were not shown in form
+            foreach ($addressForm->getAttributes() as $attribute) {
+                if (!isset($data[$attribute->getAttributeCode()])) {
+                    $address->setData($attribute->getAttributeCode(), NULL);
+                }
+            }
+
+            $address->setCustomerAddressId(null);
+            // Additional form data, not fetched by extractData (as it fetches only attributes)
+            $address->setSaveInAddressBook(empty($data['save_in_address_book']) ? 0 : 1);
+            $address->setSameAsBilling(empty($data['same_as_billing']) ? 0 : 1);
+        }
+
+        $address->implodeStreetAddress();
+        $address->setCollectShippingRates(true);
+
+        if (($validateRes = $address->validate())!==true) {
+           	//echo "<div>Error 4</div>";  // sometime here can't pass
+            return array('error' => 1, 'message' => $validateRes);
+        }
+
+        $this->getQuote()->collectTotals()->save();
+
+        $this->getCheckout()
+            ->setStepData('shipping', 'complete', true)
+            ->setStepData('shipping_method', 'allow', true);
+
+        return array();
+    }
+    public function saveShipping_1($data, $customerAddressId)
+    {
+		echo "<div>function saveShipping 1</div>";
+		//echo "<div>Save shipping:</div>";
+		//var_dump($data);
+
         if (empty($data)) {
             return array('error' => -1, 'message' => $this->_helper->__('Invalid data.'));
         }
         $address = $this->getQuote()->getShippingAddress();
+
+		//echo "<div>Shipping address:</div>";
+		//var_dump($address);
+
         if (!empty($customerAddressId)) {
             $customerAddress = Mage::getModel('customer/address')->load($customerAddressId);
             if ($customerAddress->getId()) {
@@ -321,7 +400,132 @@ class MW_Onestepcheckout_IndexController extends Mage_Checkout_OnepageController
             // ->setStepData('shipping', 'complete', true)
             // ->setStepData('shipping_method', 'allow', true);
     }
+
     public function saveBilling($data, $customerAddressId)
+    {
+        if (empty($data)) {
+            return array('error' => -1, 'message' => Mage::helper('checkout')->__('Invalid data.'));
+        }
+
+        $address = $this->getQuote()->getBillingAddress();
+        /* @var $addressForm Mage_Customer_Model_Form */
+        $addressForm = Mage::getModel('customer/form');
+        $addressForm->setFormCode('customer_address_edit')
+            ->setEntityType('customer_address')
+            ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
+
+        if (!empty($customerAddressId)) {
+            $customerAddress = Mage::getModel('customer/address')->load($customerAddressId);
+            if ($customerAddress->getId()) {
+                if ($customerAddress->getCustomerId() != $this->getQuote()->getCustomerId()) {
+                    return array('error' => 1,
+                        'message' => Mage::helper('checkout')->__('Customer Address is not valid.')
+                    );
+                }
+
+                $address->importCustomerAddress($customerAddress)->setSaveInAddressBook(0);
+                $addressForm->setEntity($address);
+                $addressErrors  = $addressForm->validateData($address->getData());
+                if ($addressErrors !== true) {
+                    return array('error' => 1, 'message' => $addressErrors);
+                }
+            }
+        } else {
+            $addressForm->setEntity($address);
+            // emulate request object
+            $addressData    = $addressForm->extractData($addressForm->prepareRequest($data));
+            $addressErrors  = $addressForm->validateData($addressData);
+            if ($addressErrors !== true) {
+                return array('error' => 1, 'message' => array_values($addressErrors));
+            }
+            $addressForm->compactData($addressData);
+            //unset billing address attributes which were not shown in form
+            foreach ($addressForm->getAttributes() as $attribute) {
+                if (!isset($data[$attribute->getAttributeCode()])) {
+                    $address->setData($attribute->getAttributeCode(), NULL);
+                }
+            }
+            $address->setCustomerAddressId(null);
+            // Additional form data, not fetched by extractData (as it fetches only attributes)
+            $address->setSaveInAddressBook(empty($data['save_in_address_book']) ? 0 : 1);
+        }
+
+        // set email for newly created user
+        if (!$address->getEmail() && $this->getQuote()->getCustomerEmail()) {
+            $address->setEmail($this->getQuote()->getCustomerEmail());
+        }
+
+        // validate billing address
+        if (($validateRes = $address->validate()) !== true) {
+            return array('error' => 1, 'message' => $validateRes);
+        }
+
+        $address->implodeStreetAddress();
+
+        if (true !== ($result = $this->_validateCustomerData($data))) {
+            return $result;
+        }
+
+        if (!$this->getQuote()->getCustomerId() && self::METHOD_REGISTER == $this->getQuote()->getCheckoutMethod()) {
+            if ($this->_customerEmailExists($address->getEmail(), Mage::app()->getWebsite()->getId())) {
+                return array('error' => 1, 'message' => $this->_customerEmailExistsMessage);
+            }
+        }
+
+        if (!$this->getQuote()->isVirtual()) {
+            /**
+             * Billing address using otions
+             */
+            $usingCase = isset($data['use_for_shipping']) ? (int)$data['use_for_shipping'] : 0;
+
+            switch ($usingCase) {
+                case 0:
+                    $shipping = $this->getQuote()->getShippingAddress();
+                    $shipping->setSameAsBilling(0);
+                    break;
+                case 1:
+                    $billing = clone $address;
+                    $billing->unsAddressId()->unsAddressType();
+                    $shipping = $this->getQuote()->getShippingAddress();
+                    $shippingMethod = $shipping->getShippingMethod();
+
+                    // Billing address properties that must be always copied to shipping address
+                    $requiredBillingAttributes = array('customer_address_id');
+
+                    // don't reset original shipping data, if it was not changed by customer
+                    foreach ($shipping->getData() as $shippingKey => $shippingValue) {
+                        if (!is_null($shippingValue) && !is_null($billing->getData($shippingKey))
+                            && !isset($data[$shippingKey]) && !in_array($shippingKey, $requiredBillingAttributes)
+                        ) {
+                            $billing->unsetData($shippingKey);
+                        }
+                    }
+                    $shipping->addData($billing->getData())
+                        ->setSameAsBilling(1)
+                        ->setSaveInAddressBook(0)
+                        ->setShippingMethod($shippingMethod)
+                        ->setCollectShippingRates(true);
+                    $this->getCheckout()->setStepData('shipping', 'complete', true);
+                    break;
+            }
+        }
+
+        $this->getQuote()->collectTotals();
+        $this->getQuote()->save();
+
+        if (!$this->getQuote()->isVirtual() && $this->getCheckout()->getStepData('shipping', 'complete') == true) {
+            //Recollect Shipping rates for shipping methods
+            $this->getQuote()->getShippingAddress()->setCollectShippingRates(true);
+        }
+
+        $this->getCheckout()
+            ->setStepData('billing', 'allow', true)
+            ->setStepData('billing', 'complete', true)
+            ->setStepData('shipping', 'allow', true);
+
+        return array();
+    }
+    public function saveBilling_1($data, $customerAddressId)
     {
 		if (empty($data)) {
 					return array('error' => -1, 'message' => $this->_helper->__('Invalid data.'));
@@ -1076,9 +1280,6 @@ class MW_Onestepcheckout_IndexController extends Mage_Checkout_OnepageController
 	//}
 	public function updateordermethodAction()
 	{
-		
-
-		
 		if(!$this->isCustomerLoggedIn()){
 		$isguest=$this->getRequest()->getPost('register_new_account');
 		
@@ -1099,8 +1300,10 @@ class MW_Onestepcheckout_IndexController extends Mage_Checkout_OnepageController
 			else
 				$data_save_billing = $this->getRequest()->getPost('billing', array());	//khi chua login
 			$customerAddressId = $this->getRequest()->getPost('billing_address_id', false); //khi customer login va co address
-			
-			
+
+			//$data_save_billing['lastname'] = 'Noname';
+			//$data_save_billing['district_id'] = 2;
+
 			if (isset($data_save_billing['email'])) {
 				$data_save_billing['email'] = trim($data_save_billing['email']);
 			}	
@@ -1112,7 +1315,9 @@ class MW_Onestepcheckout_IndexController extends Mage_Checkout_OnepageController
 					$this->savesubscibe($data_save_billing['email']);
 				}
 			}
-			$result_save_billing = $this->getOnepage()->saveBilling($data_save_billing, $customerAddressId);		//save billing
+			//$result_save_billing = $this->getOnepage()->saveBilling($data_save_billing, $customerAddressId);		//save billing
+			$result_save_billing = $this->saveBilling($data_save_billing, $customerAddressId);		//save billing
+
         }
 		
 		///////////////
@@ -1127,8 +1332,16 @@ class MW_Onestepcheckout_IndexController extends Mage_Checkout_OnepageController
 			else
 				$data_save_shipping = $this->getrequest()->getpost($ship, array());
 			 $customeraddressid	 =$data_save_shipping['address_id'];
+
+			$data_save_shipping['lastname'] = 'Noname';
+			$data_save_shipping['district_id'] = 2;
 			
-			$result_save_shipping = $this->getonepage()->saveshipping($data_save_shipping, $customeraddressid);		//save shipping
+			//$result_save_shipping = $this->getOnepage()->saveShipping($data_save_shipping, $customeraddressid);		//save shipping
+			$result_save_shipping = $this->saveShipping($data_save_shipping, $customeraddressid);		//save shipping
+
+           	//echo "<div>Result save shipping:</div>"; 
+			//var_dump($result_save_shipping);
+
 		}
 
 		///////////////
@@ -1147,7 +1360,9 @@ class MW_Onestepcheckout_IndexController extends Mage_Checkout_OnepageController
 		$data_savepayment = $this->getRequest()->getPost('payment', array());
 		$result_savepayment = $this->getOnepage()->savePayment($data_savepayment);				//save payment
 		$redirectUrl = $this->getOnepage()->getQuote()->getPayment()->getCheckoutRedirectUrl();
+		//print_r($this->getOnepage()->getQuote()->getPayment());
 		
+		//echo "Payment URL: ".$redirectUrl.", ".var_dump($data_savepayment).", ".var_dump($result_savepayment);
 		if(isset($redirectUrl))
 		{
 			$this->_redirectUrl($redirectUrl);
@@ -1157,8 +1372,6 @@ class MW_Onestepcheckout_IndexController extends Mage_Checkout_OnepageController
 		
 		 $result_order = array();
         
-            
-
             if ($data_order = $this->getRequest()->getPost('payment', false)) {
                  $this->getOnepage()->getQuote()->getPayment()->importData($data_order);
              }
@@ -1419,5 +1632,74 @@ class MW_Onestepcheckout_IndexController extends Mage_Checkout_OnepageController
             }
         }
         //$this->_redirectReferer();
+    }
+    protected function _validateCustomerData(array $data)
+    {
+        /** @var $customerForm Mage_Customer_Model_Form */
+        $customerForm = Mage::getModel('customer/form');
+        $customerForm->setFormCode('checkout_register')
+            ->setIsAjaxRequest(Mage::app()->getRequest()->isAjax());
+
+        $quote = $this->getQuote();
+        if ($quote->getCustomerId()) {
+            $customer = $quote->getCustomer();
+            $customerForm->setEntity($customer);
+            $customerData = $quote->getCustomer()->getData();
+        } else {
+            /* @var $customer Mage_Customer_Model_Customer */
+            $customer = Mage::getModel('customer/customer');
+            $customerForm->setEntity($customer);
+            $customerRequest = $customerForm->prepareRequest($data);
+            $customerData = $customerForm->extractData($customerRequest);
+        }
+
+        $customerErrors = $customerForm->validateData($customerData);
+        if ($customerErrors !== true) {
+            return array(
+                'error'     => -1,
+                'message'   => implode(', ', $customerErrors)
+            );
+        }
+
+        if ($quote->getCustomerId()) {
+            return true;
+        }
+
+        $customerForm->compactData($customerData);
+
+        if ($quote->getCheckoutMethod() == self::METHOD_REGISTER) {
+            // set customer password
+            $customer->setPassword($customerRequest->getParam('customer_password'));
+            $customer->setPasswordConfirmation($customerRequest->getParam('confirm_password'));
+        } else {
+            // spoof customer password for guest
+            $password = $customer->generatePassword();
+            $customer->setPassword($password);
+            $customer->setPasswordConfirmation($password);
+            // set NOT LOGGED IN group id explicitly,
+            // otherwise copyFieldset('customer_account', 'to_quote') will fill it with default group id value
+            $customer->setGroupId(Mage_Customer_Model_Group::NOT_LOGGED_IN_ID);
+        }
+
+        $result = $customer->validate();
+        if (true !== $result && is_array($result)) {
+            return array(
+                'error'   => -1,
+                'message' => implode(', ', $result)
+            );
+        }
+
+        if ($quote->getCheckoutMethod() == self::METHOD_REGISTER) {
+            // save customer encrypted password in quote
+            $quote->setPasswordHash($customer->encryptPassword($customer->getPassword()));
+        }
+
+        // copy customer/guest email to address
+        $quote->getBillingAddress()->setEmail($customer->getEmail());
+
+        // copy customer data to quote
+        Mage::helper('core')->copyFieldset('customer_account', 'to_quote', $customer, $quote);
+
+        return true;
     }
 }

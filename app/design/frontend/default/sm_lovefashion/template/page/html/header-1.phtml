@@ -69,13 +69,22 @@
 						<?php echo $this->getChildHtml('searchbox') ?> 
 					</div>
 					<div class="right-content-header cart-hd2 col-md-3 col-xs-3">
-						<div class="search-minicart">
-							<?php echo $this->getChildHtml('mini-cartpro')?>
+						<div  class="btn-toggle show-cart-button" style="position:relative;top:16px;left:30px;">	
+							<div class="cart-icon" ">
+								<?php if ($_cartQty>0){ ?>
+									<span class="amount-i"><?php echo $_cartQty;?></span>
+								<?php } ?>
+							</div>							
+							<div class="detail-minicart" style="position:relative;top:16px;left:-20px;">
+								<a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" title="<?php echo $this->__("Go to my cart")?>" class="i-block-hd2 cart-hd2"><?php echo $this->__("My Cart");?>(<?php  echo Mage::helper('checkout/cart')->getItemsCount(); ?>)</a>
+							</div>																								
 						</div>
-					</div>
+
 				</div>
+				
 			</div>
 		</div>
+	</div>
 
 
 		<div style="clear: both;"></div>

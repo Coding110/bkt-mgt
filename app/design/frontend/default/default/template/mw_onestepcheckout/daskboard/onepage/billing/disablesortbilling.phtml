@@ -1,6 +1,6 @@
 
-<li class="fields"><?php echo $this->getLayout()->createBlock('customer/widget_name')->setTemplate('mw_onestepcheckout/name.phtml')->setObject($this->getAddress())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?></li>
-<li class="fields">
+<li class="fields a"><?php echo $this->getLayout()->createBlock('customer/widget_name')->setTemplate('mw_onestepcheckout/name.phtml')->setObject($this->getAddress())->setFieldIdFormat('billing:%s')->setFieldNameFormat('billing[%s]')->toHtml() ?></li>
+<li class="fields b">
 	<div class="field">
 				<?php if(!$this->isCustomerLoggedIn()): ?>
 							<div class="field">
@@ -15,7 +15,17 @@
 				<?php endif ?>
 	</div>
 </li>
-<li class="fields">
+<li class="fields c">
+	<div class="field" style="display: ;">
+		<label for="billing:country_id" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
+		<div class="input-box">
+			<select name="billing[country_id]" id="country"
+				class="validate-select jqtransformdone" title="国家"><option value="">
+				</option>
+				<option value="CN" selected="selected"><?php echo $this->__('China') ?></option></select>
+		</div>
+	</div>
+
 	<div class="field">
 		<label for="billing:region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
 		<div class="input-box">
@@ -78,7 +88,7 @@
 	</div>
 </li>
 
-<li class="fields">
+<li class="fields d">
 	<div class="field">
 		<label for="billing:street1" class="required"><em>*</em><?php echo $this->__('Street Address') ?></label>
 		<div class="input-box">
@@ -102,7 +112,7 @@
 <?php endfor ?>
 	</div>
 </li>
-<li class="fields">
+<li class="fields e">
 	<div class="field">
 		<label for="billing:telephone" class="required"><em>*</em><?php echo $this->__('Telephone') ?></label>
 		<div class="input-box">
@@ -124,7 +134,7 @@
 	</div>
 </li>
 
-<li class="fields">
+<li class="fields f">
 	<div class="field">
 		<label for="billing:postcode" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
 		<div class="input-box">
@@ -144,15 +154,6 @@
 		</div>
 	</div>
 	
-	<div class="field" style="display: none;">
-		<label for="billing:country_id" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
-		<div class="input-box">
-			<select name="country_id" id="country"
-				class="validate-select jqtransformdone" title="国家"><option value="">
-				</option>
-				<option value="CN" selected="selected">$this->__('中国')</option></select>
-		</div>
-	</div>
 </li>
 <script>
 	$MW_Onestepcheckout(function(){

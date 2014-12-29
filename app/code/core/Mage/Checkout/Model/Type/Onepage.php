@@ -609,6 +609,7 @@ class Mage_Checkout_Model_Type_Onepage
         if (empty($data)) {
             return array('error' => -1, 'message' => Mage::helper('checkout')->__('Invalid data.'));
         }
+		
         $quote = $this->getQuote();
         if ($quote->isVirtual()) {
             $quote->getBillingAddress()->setPaymentMethod(isset($data['method']) ? $data['method'] : null);
@@ -629,6 +630,7 @@ class Mage_Checkout_Model_Type_Onepage
 
         $payment = $quote->getPayment();
         $payment->importData($data);
+
 
         $quote->save();
 

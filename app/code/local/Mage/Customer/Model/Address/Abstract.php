@@ -492,9 +492,9 @@ public function getCity()
             $errors[] = Mage::helper('customer')->__('Please enter the first name.');
         }
 
-        if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
-            $errors[] = Mage::helper('customer')->__('Please enter the last name.');
-        }
+        //if (!Zend_Validate::is($this->getLastname(), 'NotEmpty')) {
+        //    $errors[] = Mage::helper('customer')->__('Please enter the last name.');
+        //}
 
         if (!Zend_Validate::is($this->getStreet(1), 'NotEmpty')) {
             $errors[] = Mage::helper('customer')->__('Please enter the street.');
