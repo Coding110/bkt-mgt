@@ -349,7 +349,6 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 											'onUploadSuccess' : function(file, data, response) {
 												var res =eval('(' + data + ')');
 												var tvalue=jQuery_1_7_2('#print_images_path').find('textarea').attr("id");
-												alert("print_path:"+tvalue);
 												var imgIds=jQuery_1_7_2('#'+tvalue).val();
 												if(imgIds.length>0){
 													jQuery_1_7_2('#'+tvalue).val(imgIds+":"+res.result.image_id);
@@ -362,7 +361,6 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 											},
 											'onQueueComplete' : function(queueData) {
 												getImgUrl();
-												alert(queueData.uploadsSuccessful + ' files were successfully uploaded.');
 											},
 										    'fileObjName' : 'image'
 			

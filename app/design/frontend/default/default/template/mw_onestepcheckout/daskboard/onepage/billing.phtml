@@ -39,16 +39,12 @@
 		<li id="billing-new-address-form"<?php if ($this->customerHasAddresses()): ?> style="display:none;"<?php endif; ?>>
 			<fieldset>
 					<input type="hidden" name="billing[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="billing:address_id" />
-					<ul calss="bkt">
-					<div>bkt 1</div>
+					<ul>
 					<?php if(Mage::getStoreConfig('onestepcheckout/config/is_disable')):?>
-					<div>bkt 1.1</div>
 							<?php echo $this->getChildHtml('disablesortbilling');?>
 					<?php else:?>	
-					<div>bkt 1.2</div>
 							<?php echo $this->getChildHtml('sortbilling');?>
 					<?php endif?>
-					<div>bkt 2</div>
 					<div style="clear:both;margin-top:5px;"></div>							
 					<?php if(!$this->isCustomerLoggedIn()): ?>
 
@@ -128,7 +124,7 @@
 			</li>
 			<?php endif?>
 		<?php endif?>
-		<li>
+		<li style="display:none;">
 		<?php if(Mage::getStoreConfig('onestepcheckout/config/allowshippingotheraddress')):?>
 			<?php if(!Mage::helper('onestepcheckout')->onlyProductDownloadable()):?>
 				<input type="checkbox" name="ship_to_same_address"  value="1" title="<?php echo $this->__('ship to same address') ?>" id="ship_to_same_address" class="checkbox" checked="checked"> <label for="ship_to_same_address" style="float:none;"><?php echo $this->__('Ship to same address') ?></label>
