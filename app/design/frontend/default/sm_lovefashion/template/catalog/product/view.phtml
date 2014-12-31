@@ -156,7 +156,7 @@
 										<div style="position:relative;float:left;top:330px;left:50px;">
 										  <a class="button" style="width:120px;padding:2px 0px 0px 30px" href="javascript:jQuery_1_7_2('#image_up').uploadify('upload','*')">开始上传</a> 
 										  <a class="button"  style="width:120px;padding:2px 0px 0px 30px"  href="javascript:jQuery_1_7_2('#image_up').uploadify('cancel', '*');">取消上传</a> 
-			                            </div>
+			               </div>
 									   <div id="addtocart" style="position:relative;left:100px;top:330px;display:none">
 										 <?php if($_product->isSaleable()): ?>
 												<?php echo $this->getChildHtml('addtocart')?>
@@ -353,7 +353,7 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 												if(imgIds.length>0){
 													jQuery_1_7_2('#'+tvalue).val(imgIds+":"+res.result.image_id);
 												}else{
-													jQuery_1_7_2('#'+tvalue).val(res.result.image_id+";"+imgIds);
+													jQuery_1_7_2('#'+tvalue).val(res.result.image_id);
 												}
 
 												 jQuery_1_7_2('#addtocartds').css('display',"none");
@@ -371,6 +371,7 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 									function getImgUrl(){
 									var tvalue=jQuery_1_7_2('#print_images_path').find('textarea').attr("id");
 									var imgIds=jQuery_1_7_2('#'+tvalue).val();
+									
 									jQuery_1_7_2('#'+tvalue).val("");
 									 jQuery_1_7_2.ajax({
 										type : 'get',
@@ -379,7 +380,7 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 										data: {method : "pwg.images.archive", imageids : imgIds},
 										dataType: 'jsonp' ,
 										success : function(data, textStatus){										
-												jQuery_1_7_2('#'+tvalue).val(data.result.images);
+												jQuery_1_7_2('#'+tvalue).val(data.result.images+";"+imgIds);
 											
 										}
 									
