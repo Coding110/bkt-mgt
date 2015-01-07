@@ -1,4 +1,5 @@
 .buildpath
+.gitignore_20150107
 .htaccess
 .htaccess.sample
 .project
@@ -11,6 +12,7 @@ RELEASE_NOTES.txt
 api.php
 cron.php
 cron.sh
+crossdomain.xml
 downloader/
 en-key
 errors/
@@ -32,14 +34,10 @@ jsonpa.html
 lib/
 mage
 media/
+meitu.php
 php.ini.sample
 pkginfo/
 shell/
 t.log
 test.php
-theme000/
 var/
-crossdomain.xml
-meitu.php
-*.bak
-*.swp
