@@ -69,16 +69,12 @@ class Mage_Page_Block_Html_Footer extends Mage_Core_Block_Template
 
  public function getCopyright()
     {
-
-	$desi='De'.'si'.'g'.'ed'.' by'.' ma'.'ge'.'nt'.'o'.'-the'.'me'.'s.'.'j'.'e'.'xt'.'n.c'.'om';
-	$lin1='<a'.' href="'.'ht'.'tp'.'://'.'ww'.'w.'.'ma'.'ge'.'nt'.'o-'.'th'.'em'.'e'.'s'.'.'.'j'.'e'.'x'.'tn.'.'c'.'om">'.'Ma'.'ge'.'n'.'to'.' '.'T'.'he'.'me'.'s'.'</'.'a>';
-	$lin2=', <a'.' href="'.'ht'.'tp'.'://'.'ww'.'w.'.'ec'.'omm'.'er'.'ce-'.'we'.'b-'.'de'.'ve'.'lo'.'pe'.'rs'.'.'.'c'.'om">'.'E'.'Co'.'mm'.'er'.'ce'.' we'.'b'.'si'.'te'.' '.'De'.'ve'.'lo'.'pm'.'en'.'t</'.'a>';
-	$ft_btm='f'.'o'.'ot'.'er'.'_bt'.'m_l'.'in'.'ks';
-	$concop='de'.'si'.'gn/'.'fo'.'ot'.'er/c'.'opyr'.'ig'.'ht';
-	$classft= '<d'.'iv '.'cl'.'as'.'s="'.'fo'.'ote'.'r-'.'bt'.'m-c'.'ont'.'ai'.'ne'.'r">';
-	$clasbtft= '<d'.'iv '.'c'.'la'.'ss="b'.'tm-f'.'oot'.'er">';
-	$clssbmlft='<d'.'iv '.'cla'.'ss="b'.'tm-f'.'oot'.'er-l'.'ef'.'t">'.'<ad'.'dre'.'ss>'.Mage::getStoreConfig($concop).'</a'.'ddr'.'es'.'s><'.'spa'.'n>'.$desi.' '.$lin1.' '.$lin2.'</'.'sp'.'an'.'></'.'d'.'iv>';
-	$div1='<'.'d'.'i'.'v'.' '.'c'.'l'.'a'.'s'.'s'.'="'.'b'.'tm'.'-fo'.'ot'.'er'.'-r'.'i'.'g'.'h'.'t">'. $this->getlayout()->createBlock('cms/Block')->setBlockId($ft_btm)->toHtml().'</'.'d'.'iv'.'>'.'</'.'d'.'iv'.'>'.'</'.'d'.'iv'.'>';
+	$ft_btm='footer_btm_links';
+	$concop='design/footer/copyright';
+	$classft= '<div class="footer-btm-container">';
+	$clasbtft= '<div class="btm-footer">';
+	$clssbmlft='<div class="btm-footer-left"><address>'.Mage::getStoreConfig($concop).'</address></div>';
+	$div1='<div class="btm-footer-right">'. $this->getlayout()->createBlock('cms/Block')->setBlockId($ft_btm)->toHtml().'</div></div></div>';
 
 	return $vals = $classft.$clasbtft.$clssbmlft.$div1;
 

@@ -9,35 +9,30 @@
 						<?php echo $this->getChildHtml('store_language')?>
 					</div>
 				</div>
-				<div class="col-md-4 col-sm-7 toplinks-header">
+				<div class="toplinks-header">
 					<ul class="links-account">
 						<li class="account-link"><a
 							href="<?php echo $this->getUrl('customer/account')?>"
 							title="<?php echo $this->__('My Account');?>"><?php echo $this->__('My Account');?></a>
 							<ul class="dropdown-link">
-								<li><a href="/index.php/customer/account" title="Account info"><?php echo $this->__('Account info'); ?></a></li>
+								<li><a href="<?php echo $this->getUrl('customer/account')?>" title="Account info"><?php echo $this->__('Account info'); ?></a></li>
 								<!--<li><a href="#" title="Watch list">Watch list</a></li>
 								<li><a href="#" title="Messages">Messages</a></li>-->
-								<li><a href="/index.php/sales/order/history"
+								<li><a href="<?php echo $this->getUrl('sales/order/history')?>"
 									title="Order history"><?php echo $this->__('My Orders'); ?></a></li>
-								<li><a href="/index.php/checkout/cart" title="Shopping Cart"><?php echo $this->__('My Cart'); ?></a></li>
-								<li><a href="/index.php/wishlist" title="Favorites"><?php echo $this->__('My Wishlist'); ?></a></li>
-								<li><a href="/index.php/review/customer"
+								<li><a href="<?php echo $this->getUrl('checkout/cart')?>" title="Shopping Cart"><?php echo $this->__('My Cart'); ?></a></li>
+								<li><a href="<?php echo $this->getUrl('wishlist')?>" title="Favorites"><?php echo $this->__('My Wishlist'); ?></a></li>
+								<li><a href="<?php echo $this->getUrl('review/customer')?>"
 									title="My Product Reviews"><?php echo $this->__('My Product Reviews'); ?></a></li>
-								<li><a href="/index.php/tag/customer" title="My Tags"><?php echo $this->__('My Tags'); ?></a></li>
+								<li><a href="<?php echo $this->getUrl('tag/customer')?>" title="My Tags"><?php echo $this->__('My Tags'); ?></a></li>
 							</ul></li>
 
 						<li class="register-link-help"><a href="#"
 							title="<?php echo $this->__('Help');?>"><?php echo $this->__('Help');?></a>
 							<ul class="dropdown-link">
-								<li><a href="#" title="Shipping & Delivery">Shipping & Delivery</a></li>
-								<li><a href="#" title="Returns & Refunds">Returns & Refunds</a></li>
-								<li><a href="#" title="Managing Your Account">Managing Your
-										Account</a></li>
-								<li><a href="#" title="Payment, Pricing & Promotions">Payment,
-										Pricing & Promotions</a></li>
-								<li><a href="#" title="Ordering">Ordering</a></li>
-								<li><a href="#" title="Need More Help?">Need More Help?</a></li>
+								<li><a href="<?php echo $this->getUrl('about-becktu-album-store'); ?>" title="<?php echo $this->__('About us'); ?>"><?php echo $this->__('About us'); ?></a></li>
+								<li><a href="<?php echo $this->getUrl('customer-service'); ?>" title="<?php echo $this->__('Customer service'); ?>"><?php echo $this->__('Customer service'); ?></a></li>
+								<li><a href="<?php echo $this->getUrl('Help'); ?>" title="<?php echo $this->__('Help'); ?>"><?php echo $this->__('Help'); ?></a></li>
 							</ul></li>
 					</ul>
 					<?php echo $this->getChildHtml('topLinks');?>
@@ -68,19 +63,6 @@
 					<div class="col-xs-5 right-content-header">
 						<?php echo $this->getChildHtml('searchbox') ?> 
 					</div>
-					<div class="right-content-header cart-hd2 col-md-3 col-xs-3">
-						<div  class="btn-toggle show-cart-button" style="position:relative;top:16px;left:30px;">	
-							<div class="cart-icon" ">
-								<?php if ($_cartQty>0){ ?>
-									<span class="amount-i"><?php echo $_cartQty;?></span>
-								<?php } ?>
-							</div>							
-							<div class="detail-minicart" style="position:relative;top:16px;left:-20px;">
-								<a href="<?php echo Mage::helper('checkout/cart')->getCartUrl(); ?>" title="<?php echo $this->__("Go to my cart")?>" class="i-block-hd2 cart-hd2"><?php echo $this->__("My Cart");?>(<?php  echo Mage::helper('checkout/cart')->getItemsCount(); ?>)</a>
-							</div>																						
-						</div>
-
-				</div>
 				
 			</div>
 		</div>

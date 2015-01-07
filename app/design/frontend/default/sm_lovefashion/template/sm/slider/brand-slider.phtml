@@ -19,7 +19,7 @@ if(!empty($list)){
 
 		<div class="title-client title-brand">
 			<div class="w-title">
-				<h2><?php echo $this->__('Our Brands');?></h2>
+				<h2><?php  echo $this->__('special product');// $this->__('Our Brands');?></h2>
 			</div>
 		</div>
 		<div id="<?php echo $uniqued; ?>" class="container-slider slide-home-footer" style="<?php if( $options->anchor == "bottom" ){ echo "margin-bottom:40px;"; }?>">
@@ -82,7 +82,7 @@ if(!empty($list)){
 											<?php if( $options->product_readmore_disp == 1 ){?>
 											<div class="item-read">
 												<a href="<?php echo $item['link'];?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";>
-													<?php echo $options->product_readmore_text; ?>
+													<?php  echo $this->__('View Details');// $options->product_readmore_text; ?>
 												</a>
 											</div>	
 											<?php }?>							

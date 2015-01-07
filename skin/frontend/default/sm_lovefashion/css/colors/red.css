@@ -88,7 +88,7 @@
 }
 .yt-tab-listing .respl-tabs-wrap ul li.respl-tab.tab-sel,
 .yt-tab-listing .respl-tabs-wrap ul li.respl-tab:hover{
-	border-bottom:1px solid #e74847;
+	//border-bottom:1px solid #e74847;
 }
 .yt-tab-listing .respl-tabs-wrap ul li.respl-tab .moc-tab-item{
 	background:url(../../images/red/moc-tab-item.png);

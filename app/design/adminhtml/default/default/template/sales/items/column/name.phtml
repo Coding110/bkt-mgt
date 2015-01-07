@@ -36,6 +36,16 @@
     <?php if ($this->getOrderOptions()): ?>
         <dl class="item-options">
         <?php foreach ($this->getOrderOptions() as $_option): ?>
+
+			<?php $lb = trim($this->htmlEscape($_option['label'])); if($lb == "print_images_path"): ?>
+            	<dt><?php echo $this->__('Printed Photos'); ?></dt>
+            	<dd>
+				<?php $downloadlink = explode(';', $_option['value']); ?>
+				<span><a href="<?php if(count($downloadlink) > 1) echo $downloadlink[0]; ?>"><?php echo $this->__('Photos download link');?></span>
+            	</dd>
+			<?php continue; ?>
+			<?php endif; ?>
+
             <dt><?php echo $_option['label'] ?></dt>
             <dd>
             <?php if (isset($_option['custom_view']) && $_option['custom_view']): ?>

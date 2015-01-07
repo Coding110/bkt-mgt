@@ -200,14 +200,14 @@
 									<a href="#yt_tab_tags"><?php echo $this->__('Product Tags') ?></a>
 								</li>
 								<?php endif; ?>	
-								<?php if ($_additional = $this->getChildHtml('additional')):?>
+								<!--<?php if ($_additional = $this->getChildHtml('additional')):?>
 									<li>
 										<a href="#yt_tab_additional"><?php echo $this->__('Additional Information') ?></a>
 									</li>
 								<?php endif; ?>
 								<li>
 									<a href="#yt_tab_custom"><?php echo $this->__('Custom Tab') ?></a>
-								</li>
+								</li>-->
 							</ul>
 							<div class="yt-tab-content">						
 								<?php if ( $_description ):?>
@@ -392,9 +392,8 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 											document.getElementById('cat_dlg_1').style.display='block';
 										    document.getElementById('cat_dlg_2').style.display='block';
 										<?php else:?>
-											window.location.href="/index.php/customer/account/login/";
+											window.location.href="<?php echo $this->getUrl('customer/account/login/')?>";
 										<?php endif; ?>
-				
 									}
 									function closeme(){
 										document.getElementById('cat_dlg_1').style.display='none';

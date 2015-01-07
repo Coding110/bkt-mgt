@@ -40,7 +40,7 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
         <?php endif; ?>
         </h2>
         <?php if ($_options = $this->getOptionList()):?>
-        <dl class="item-options">
+        <dl class="item-options bkt8">
             <?php foreach ($_options as $_option) : ?>
 			<?php $lb = trim($this->htmlEscape($_option['label'])); if($lb == "print_images_path"): ?><?php continue; ?><?php endif; ?>
             <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>

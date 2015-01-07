@@ -3239,7 +3239,7 @@ label{
 }
 .form-list input.input-text,
 input.input-text {
-    width: 230px;
+    width: 230px !important;
 	padding: 7px 10px;
 	border:1px solid #D9D9D9;
 }

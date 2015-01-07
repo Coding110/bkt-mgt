@@ -61,10 +61,10 @@ return $best_products;
 $best_products = getBestsellingProducts();
 ?>
 <?php if ($best_products->getSize() > 0): ?>
-<div class="page-title">
+<div class="page-title" style="display:none">
 	<h1><?php echo $this->__('Recommended Products');?></h1>
 </div>
-<div class="container-slider-best products-grid">
+<div class="container-slider-best products-grid" style="display:none">
 	<div class="block-content">
 		<div class="page-button top style">
             <ul class="control-button">
@@ -480,17 +480,17 @@ endif;
 							<div class="item-addto-wrap">
 								<div class="button-action item-addcart">
 									<?php if($_product->isSaleable()): ?>
-									<a class="button btn-cart" title="<?php echo $this->__('Add to Cart') ?>" href="javascript:void(0);" onclick="setLocation('<?php echo $this->getAddToCartUrl($id_product) ?>')">
+									<a style="display:none;" class="button btn-cart" title="<?php echo $this->__('Add to Cart') ?>" href="javascript:void(0);" onclick="setLocation('<?php echo $this->getAddToCartUrl($id_product) ?>')">
 										<?php echo $this->__('Add to Cart') ?>
 									</a>
 									<?php else: ?>
-									<p class="availability out-of-stock">
+									<p  style="display:none;" class="availability out-of-stock">
 										<span><?php echo $this->__('Out of stock') ?> </span>
 									</p>
 									<?php endif; ?>	
 
 									<?php if( $_compareUrl=$this->getAddToCompareUrl($_product) ): ?>
-										<a class="link-compare" href="<?php echo $_compareUrl ?>" title="<?php echo $this->__('Add to Compare'); ?>">
+										<a  style="display:none;" class="link-compare" href="<?php echo $_compareUrl ?>" title="<?php echo $this->__('Add to Compare'); ?>">
 											<?php echo $this->__('Add to Compare') ?>
 										</a>
 									<?php endif;?>

@@ -327,6 +327,7 @@ public function getCity()
     }
     public function getDistrictId()
     {
+  
     	$districtId = $this->getData('district_id');
     	$district   = $this->getData('district');
     
@@ -335,12 +336,12 @@ public function getCity()
     			$this->setData('district_id', $this->getDistrictModel($district)->getDistrictId());
     		}
     	}
-    	elseif ($districtId) {
+    	else if ($districtId) {
     		if ($this->getDistrictModel($districtId)->getCityId() == $this->getCityId()) {
     			$this->setData('district_id', $this->getDistrictModel($districtId)->getDistrictId());
     		}
     	}
-    	elseif (is_string($district)) {
+    	else if (is_string($district)) {
     		$this->setData('district_id', $district);
     	}
     	return $this->getData('district_id');

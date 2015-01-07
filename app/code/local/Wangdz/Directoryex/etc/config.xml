@@ -5,6 +5,8 @@
             <version>0.1.0.0</version>
         </Wangdz_Directoryex>
     </modules>
+
+
     <global>
    
         <models>
@@ -97,6 +99,7 @@
     </frontend>
     <default>
         <customer>
+               
             
             <address_templates>
                 <text>{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}
@@ -139,5 +142,7 @@ T: {{var telephone}}
                 <js_template>#{prefix} #{firstname} #{middlename} #{lastname} #{suffix}&lt;br/&gt;#{company}&lt;br/&gt;#{street0}&lt;br/&gt;#{street1}&lt;br/&gt;#{street2}&lt;br/&gt;#{street3}&lt;br/&gt;#{city}, #{region}, #{postcode}&lt;br/&gt;#{country_id}&lt;br/&gt;T: #{telephone}&lt;br/&gt;F: #{fax}&lt;br/&gt;VAT: #{vat_id}</js_template>
             </address_templates>
         </customer>
+   
+
     </default>
 </config>

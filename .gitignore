@@ -39,3 +39,7 @@ t.log
 test.php
 theme000/
 var/
+crossdomain.xml
+meitu.php
+*.bak
+*.swp

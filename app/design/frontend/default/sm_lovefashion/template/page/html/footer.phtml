@@ -40,15 +40,16 @@ global $var_yttheme;?>
 				
 				<div class="col-md-7 col-sm-7 col-xs-12 footer-link-block">
 					<!--<div class="row row-1">-->
+					<div class="row" style="height:80px; width=100%;"></div>
 					<div class="row">
 						<div class="col-lg-4 col-md-4 col-xs-6">
-							<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('connect-with-us-footer')->toHtml(); ?>	
+							<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('pt001-footer-about')->toHtml(); ?>	
 						</div>
+						<!--<div class="col-lg-4 col-md-4 col-xs-6">
+							<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId('customer-service-footer')->toHtml(); ?>	
+						</div>-->
 						<div class="col-lg-4 col-md-4 col-xs-6">
-							<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('information-footer')->toHtml(); ?>	
-						</div>
-						<div class="col-lg-4 col-md-4 col-xs-6">
-							<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('customer-service-footer')->toHtml(); ?>	
+							<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('friendly-links')->toHtml(); ?>	
 						</div>
 					<!--</div>-->
 					
@@ -56,23 +57,22 @@ global $var_yttheme;?>
 						<div class="col-lg-4 col-md-4 col-xs-6 account-links-ft">
 							<div class="block-ft footer-contact">
 								<div class="footer-title">
-									<h2>我的账户</h2>
+									<h2><?php echo  $this->__('My Account'); ?></h2>
 								</div>
 								<div class="content-block-footer">
 									<ul class="right-footer-link">
 										<li class="item">
+										</li>
+											<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('pt002-footer-account')->toHtml(); ?>	
 									
 											<?php if(!$this->helper('customer')->isLoggedIn()):?>
 												<a href="<?php echo $this->getUrl('customer/account/login')?>" title="<?php echo $this->__('Login');?>" ><?php echo $this->__('Login');?></a>
-											<?php endif;?>
+											<?php else: ?>
 												
-											<?php if($this->helper('customer')->isLoggedIn()):?>
 												<a href="<?php echo $this->getUrl('customer/account/logout')?>" title="<?php echo $this->__('Logout');?>"><?php echo $this->__('Logout');?></a>
 											<?php endif;?>
-										</li>
 										
 									</ul>
-									<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('my-account-footer')->toHtml(); ?>	
 								</div>
 							</div>
 						</div>
@@ -82,12 +82,11 @@ global $var_yttheme;?>
 					</div>
 					<!--</div>-->
 					
+				<div class="row" style="height:50px; width=100%;"></div>
 				<div class="copyright">
 						<address><?php  echo $this->getCopyright() ?></address> 
-						
-						<a target="_blank" href="http://www.magentech.com/themes/premium-themes" title="Magento Theme">Magento Themes</a> Demo Store. All Rights Reserved.
-						
 					</div>
+
 				</div>
 			
 			</div>

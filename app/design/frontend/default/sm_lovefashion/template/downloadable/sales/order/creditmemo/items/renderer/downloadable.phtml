@@ -29,9 +29,9 @@
 <tr class="border" id="order-item-row-<?php echo $_item->getId() ?>">
     <td><h4 class="product-name"><?php echo $this->htmlEscape($_item->getName()) ?></h4>
         <?php if($_options = $this->getItemOptions()): ?>
-        <dl class="item-options">
+        <dl class="item-options bkt2">
         <?php foreach ($_options as $_option) : ?>
-			<?php if($_options['title'] == 'print_images_path'): ?><?php continue: ?><?php endif; ?>
+			<?php $lb = trim($this->htmlEscape($_option['label'])); if($lb == "print_images_path"): ?><?php continue; ?><?php endif; ?>
             <dt><?php echo $this->htmlEscape($_option['label']) ?></dt>
             <?php if (!$this->getPrintStatus()): ?>
                 <?php $_formatedOptionValue = $this->getFormatedOptionValue($_option) ?>

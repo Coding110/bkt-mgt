@@ -66,7 +66,6 @@
             </li>
         <?php endfor; ?>
             <li class="fields">
-                
                 <div class="field">
                     <label for="region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
                     <div class="input-box">
@@ -164,8 +163,7 @@
 <script type="text/javascript">
 //<![CDATA[
     var dataForm = new VarienForm('form-validate', true);
-    //dataForm.setElementsRelation('country', 'state', '<?php echo $this->getUrl('directory/json/childRegion') ?>');
-    //new RegionUpdater('country', 'region', 'region_id', countryRegions, undefined, 'zip');
+
     var shippingRegionUpdater = new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
     var shippingCityUpdater = new RegionUpdater('region_id', 'city', 'city_id', <?php echo $this->helper('directoryex')->getCityJson() ?>, undefined, 'postcode');
 	var shippingDistrictUpdater = new RegionUpdater('city_id', 'district', 'district_id', <?php echo $this->helper('directoryex')->getDistrictJson() ?>, undefined, 'postcode');

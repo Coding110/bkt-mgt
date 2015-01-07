@@ -181,6 +181,7 @@
     </form>
     <script type="text/javascript">
     //<![CDATA[
+    alert('test');
         var dataForm = new VarienForm('form-validate', true);
         <?php if($this->getShowAddressFields()): ?>
         new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
