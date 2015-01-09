@@ -318,15 +318,15 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 									  jQuery_1_7_2.ajax({
 										type : 'get',
 										async :false, 
-										url:'http://www.becktu.com/ws.php?format=json',
+										url:'http://imgp.becktu.com/ws.php?format=json',
 										data: {method : "pwg.session.getStatus"},
 										dataType: 'jsonp' ,
 										success : function(data, textStatus){
 											if(data.result.username=="guest"){
 											jQuery_1_7_2.ajax({
 												type:'get',
-												url: 'http://www.becktu.com/ws.php?format=json',
-												data: {method : "pwg.session.login",username : "222@qq.com",password : "mazi123"},
+												url: 'http://imgp.becktu.com/ws.php?format=json',
+												data: {method : "pwg.session.login",username : "test@qq.com",password : "123456"},
 												dataType: 'JSONP' ,
 												success : function(data, textStatus){
 												}
@@ -339,11 +339,11 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 									jQuery_1_7_2('#image_up').uploadify({
 											 'auto' : false,
 											'formData'     : {
-												'category' : 35,
+												'category' : 7,
 												'author'	: '<?php $customer = Mage::getSingleton('customer/session')->getCustomer();echo $customer->getEmail(); ?>'
 											},
 											'swf'      : '<?php echo $this->getSkinUrl('swf/uploadify.swf') ?>',
-											'uploader' : 'http://www.becktu.com/ws.php?method=pwg.images.addSimple&format=json',
+											'uploader' : 'http://imgp.becktu.com/ws.php?method=pwg.images.addSimple&format=json',
 											'buttonText' : '选择文件',
 											'removeCompleted' : true,
 											'onUploadSuccess' : function(file, data, response) {
@@ -371,15 +371,14 @@ if (!Mage::getSingleton("customer/session")->isLoggedIn() && strpos(Mage::getBlo
 									function getImgUrl(){
 									var tvalue=jQuery_1_7_2('#print_images_path').find('textarea').attr("id");
 									var imgIds=jQuery_1_7_2('#'+tvalue).val();
-									
 									jQuery_1_7_2('#'+tvalue).val("");
 									 jQuery_1_7_2.ajax({
 										type : 'get',
 										async :false, 
-										url:'http://www.becktu.com/ws.php?format=json',
+										url:'http://imgp.becktu.com/ws.php?format=json',
 										data: {method : "pwg.images.archive", imageids : imgIds},
 										dataType: 'jsonp' ,
-										success : function(data, textStatus){										
+										success : function(data, textStatus){								
 												jQuery_1_7_2('#'+tvalue).val(data.result.images+";"+imgIds);
 											
 										}
