@@ -4012,7 +4012,8 @@ input.input-text.qty{
 	display:block;
 }
 .respl-item .item-info .item-title a{
-	font-size: 133.33%;
+	//font-size: 133.33%;
+	font-size: 100%;
     letter-spacing: 0.5px;
 }
 .mobile-menu-wrapper{
