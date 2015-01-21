@@ -61,6 +61,28 @@ Default layout, loads most of the pages
 Load this update on every page when customer is logged in
 -->
 
+<customer_account_resetpassword translate="label">
+    <label>Reset a Password</label>
+    <remove name="right"/>
+    <remove name="left"/>
+
+    <reference name="head">
+        <action method="setTitle" translate="title" module="customer">
+            <title>Reset a Password</title>
+        </action>
+    </reference>
+    <reference name="root">
+        <action method="setTemplate">
+            <template>page/1column.phtml</template>
+        </action>
+        <action method="setHeaderTitle" translate="title" module="customer">
+            <title>Reset a Password</title>
+        </action>
+    </reference>
+    <reference name="content">
+        <block type="customer/account_resetpassword" name="resetPassword" template="customer/form/resetforgottenpassword.phtml"/>
+    </reference>
+</customer_account_resetpassword>
     <customer_logged_in>
         <reference name="top.links">
             <action method="removeLinkByUrl"><url helper="customer/getRegisterUrl" /></action>
@@ -297,5 +319,5 @@ Customer account address edit page
             <block type="customer/address_edit" name="customer_address_edit" template="customer/address/edit.phtml"/>
         </reference>
     </customer_address_form>
-
+		
 </layout>

@@ -34,7 +34,7 @@
     <h5 class="title"><span id="order_item_<?php echo $_item->getId() ?>_title"><?php echo $this->escapeHtml($_item->getName()) ?></span></h5>
     <div><strong><?php echo $this->helper('sales')->__('SKU') ?>:</strong> <?php echo implode('<br />', Mage::helper('catalog')->splitSku($this->escapeHtml($this->getSku()))); ?></div>
     <?php if ($this->getOrderOptions()): ?>
-        <dl class="item-options">
+        <dl class="item-options bktPP">
         <?php foreach ($this->getOrderOptions() as $_option): ?>
 
 			<?php $lb = trim($this->htmlEscape($_option['label'])); if($lb == "print_images_path"): ?>

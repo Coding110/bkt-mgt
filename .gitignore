@@ -40,3 +40,6 @@ shell/
 t.log
 test.php
 var/
+flipbook_fancybox_meitu/
+app/code/community/Zapper/
+app/etc/modules/Zapper_ScanToLogin.xml

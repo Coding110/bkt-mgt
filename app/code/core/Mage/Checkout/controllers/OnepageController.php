@@ -621,14 +621,16 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result['error']    = true;
             $result['error_messages'] = $this->__('There was an error processing your order. Please contact us or try again later.');
         }
-        $this->getOnepage()->getQuote()->save();
+        //$this->getOnepage()->getQuote()->save();
         /**
          * when there is redirect to third party, we don't want to save order yet.
          * we will save the order in return action.
          */
         if (isset($redirectUrl)) {
             $result['redirect'] = $redirectUrl;
-        }
+        }else{
+        	$this->getOnepage()->getQuote()->save();
+		}
 
         $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
     }

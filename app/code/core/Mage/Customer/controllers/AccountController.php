@@ -702,6 +702,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
      */
     public function forgotPasswordPostAction()
     {
+		//Mage::log("[bktmaillog] start forgotPasswordPostAction");
         $email = (string) $this->getRequest()->getPost('email');
         if ($email) {
             if (!Zend_Validate::is($email, 'EmailAddress')) {
@@ -715,8 +716,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             $customer = $this->_getModel('customer/customer')
                 ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
                 ->loadByEmail($email);
-
-            if ($customer->getId()) {
+			if ($customer->getId()) {
                 try {
                     $newResetPasswordLinkToken =  $this->_getHelper('customer')->generateResetPasswordLinkToken();
                     $customer->changeResetPasswordLinkToken($newResetPasswordLinkToken);
@@ -759,6 +759,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
                 ->setResetPasswordLinkToken($resetPasswordLinkToken);
             $this->renderLayout();
         } catch (Exception $exception) {
+			Mage::log('[resetpwdlog]'.$exception);
             $this->_getSession()->addError( $this->_getHelper('customer')->__('Your password reset link has expired.'));
             $this->_redirect('*/*/forgotpassword');
         }

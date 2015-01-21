@@ -96,7 +96,7 @@ class Mage_Core_Model_Email extends Varien_Object
 
     public function send()
     {
-        if (Mage::getStoreConfigFlag('system/smtp/disable')) {
+		if (Mage::getStoreConfigFlag('system/smtp/disable')) {
             return $this;
         }
 

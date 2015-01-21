@@ -668,8 +668,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         $emailInfo = Mage::getModel('core/email_info');
         $emailInfo->addTo($this->getEmail(), $this->getName());
         $mailer->addEmailInfo($emailInfo);
-
-        // Set all required params and send emails
+        
+		// Set all required params and send emails
         $mailer->setSender(Mage::getStoreConfig($sender, $storeId));
         $mailer->setStoreId($storeId);
         $mailer->setTemplateId(Mage::getStoreConfig($template, $storeId));

@@ -125,6 +125,7 @@
 										   <button type="button"  title="上传照片" class="button" onclick="openme();" ><span><span>冲印照片</span></span></button>	
 											<?php //echo $this->getChildHtml('addto') ?>
 										</div>
+										<br><?php echo $this->getChildHtml('album') ?>
 										<?php echo $this->getChildHtml('extra_buttons') ?>
 									<?php elseif (!$_product->isSaleable()): ?>
 										<div class="add-to-box">

@@ -13,7 +13,6 @@ class Aschroder_SMTPPro_Model_Email extends Mage_Core_Model_Email {
 
 
      public function send() {
-
         $_helper = Mage::helper('smtppro');
 
         // If it's not enabled, just return the parent result.
