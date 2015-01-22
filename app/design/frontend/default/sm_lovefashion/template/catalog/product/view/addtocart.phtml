@@ -72,6 +72,7 @@
 		<?php echo $this->getChildHtml('', true, true) ?>
 
 <script>
+	jQuery.noConflict();
 	jQuery(document).ready(function($){
 		// validate configurable 
 		$('.configurable-product').bind("change",function(){

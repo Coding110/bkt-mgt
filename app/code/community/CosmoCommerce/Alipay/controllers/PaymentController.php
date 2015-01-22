@@ -62,8 +62,11 @@ class CosmoCommerce_Alipay_PaymentController extends Mage_Core_Controller_Front_
             return;
         }
 
+		//$order->setStatus(Mage_Sales_Model_Order::STATE_NEW);
+
         $order->addStatusToHistory(
-        $order->getStatus(),
+        //$order->getStatus(),
+		Mage_Sales_Model_Order::STATE_NEW,
         Mage::helper('alipay')->__('Customer was redirected to Alipay')
         );
         $order->save();
@@ -79,6 +82,7 @@ class CosmoCommerce_Alipay_PaymentController extends Mage_Core_Controller_Front_
 
     public function notifyAction()
     {
+		Mage::log("[Alipay] notify action now");
         if ($this->getRequest()->isPost())
         {
             $postData = $this->getRequest()->getPost();
@@ -133,12 +137,14 @@ class CosmoCommerce_Alipay_PaymentController extends Mage_Core_Controller_Front_
 		
 		if ( $mysign == $postData["sign"])  {
 			
+			Mage::log("[Alipay] notify, order: ".$postData['out_trade_no'].", trade status: ".$postData['trade_status']);
 			
 			if($postData['trade_status'] == 'WAIT_BUYER_PAY') {                   //等待买家付款
 				
 				$order = Mage::getModel('sales/order');
 				$order->loadByIncrementId($postData['out_trade_no']);
 				//$order->setAlipayTradeno($postData['trade_no']);
+				$order->setStatus(Mage_Sales_Model_Order::STATE_PENDING_PAYMENT);
 				// $order->sendNewOrderEmail();
 				$order->addStatusToHistory(
 				$order->getStatus(),
@@ -155,9 +161,12 @@ class CosmoCommerce_Alipay_PaymentController extends Mage_Core_Controller_Front_
 				$order = Mage::getModel('sales/order');
 				$order->loadByIncrementId($postData['out_trade_no']);
 				//$order->setAlipayTradeno($postData['trade_no']);
+				$order->setStatus('waiting_shipment');
+				Mage::log("[Alipay] notify, waiting shipment, status: ".$order->getStatus().", config data: ".$alipay->getConfigData('order_status_payment_accepted'));
 				// $order->sendNewOrderEmail();
 				$order->addStatusToHistory(
-				$alipay->getConfigData('order_status_payment_accepted'),
+				//$alipay->getConfigData('order_status_payment_accepted'),
+				'waiting_shipment',
 				Mage::helper('alipay')->__('买家付款成功,等待卖家发货。'));
 				try{
 					$order->save();
@@ -171,9 +180,12 @@ class CosmoCommerce_Alipay_PaymentController extends Mage_Core_Controller_Front_
 				$order = Mage::getModel('sales/order');
 				$order->loadByIncrementId($postData['out_trade_no']);
 				//$order->setAlipayTradeno($postData['trade_no']);
+				$order->setStatus('waiting_confirm');
+				Mage::log("[Alipay] notify, waiting confirm, status: ".$order->getStatus());
 				// $order->sendNewOrderEmail();
 				$order->addStatusToHistory(
-				$alipay->getConfigData('order_status_payment_accepted'),
+				//$alipay->getConfigData('order_status_payment_accepted'),
+				'waiting_confirm',
 				Mage::helper('alipay')->__('卖家已经发货等待买家确认。'));
 				try{
 					$order->save();
@@ -183,13 +195,15 @@ class CosmoCommerce_Alipay_PaymentController extends Mage_Core_Controller_Front_
 
 			}
 			else if($postData['trade_status'] == 'TRADE_FINISHED' || $postData['trade_status'] == "TRADE_SUCCESS") {   
+
 				$order = Mage::getModel('sales/order');
 				$order->loadByIncrementId($postData['out_trade_no']);
 				//$order->setAlipayTradeno($postData['trade_no']);
-				$order->setStatus(Mage_Sales_Model_Order::STATE_PROCESSING);
+				$order->setStatus(Mage_Sales_Model_Order::STATE_COMPLETE);
 				// $order->sendNewOrderEmail();
 				$order->addStatusToHistory(
-				$alipay->getConfigData('order_status_payment_accepted'),
+				//$alipay->getConfigData('order_status_payment_accepted'),
+				Mage_Sales_Model_Order::STATE_COMPLETE,
 				Mage::helper('alipay')->__('买家已付款,交易成功结束。'));
 				try{
 					$order->save();
@@ -201,11 +215,12 @@ class CosmoCommerce_Alipay_PaymentController extends Mage_Core_Controller_Front_
 			}
 			else {
 				echo "fail";
-				Mage::log("x");
+				Mage::log("[Alipay] notify failed.");
 			}	
 
 		} else {
 			echo "fail";
+			Mage::log("[Alipay] notify failed, sign error.");
 		}
     }
 

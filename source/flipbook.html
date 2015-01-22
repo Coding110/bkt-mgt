@@ -14,6 +14,13 @@
     <link type="text/css" href="/css/fb/style.css" rel="stylesheet">
 	<!--<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Play:400,700">-->
     <script src="/js/fb/jquery.js"></script>
+	<script type="text/javascript">
+		//var jquery_1_10_2_no = $.noConflict(true);
+		jQuery.noConflict();
+		//jQuery(document).ready(function($) {
+		//	jQuery('.fancybox-overlay').click(function(){alert("in flipbook");});
+		//});
+	</script>
     <script src="/js/fb/turn.js"></script>              
 	<script src="/js/fb/jquery.fullscreen.js"></script>
     <script src="/js/fb/jquery.address-1.6.min.js"></script>
@@ -1011,9 +1018,9 @@
 	'lazy_loading_pages':'false'
     })
 
-		$(document).ready(function() {
-			$('.fancybox-overlay').click(function(){alert("in flipbook");});
-		});
+//		$(document).ready(function($) {
+//			$('.fancybox-overlay').click(function(){alert("in flipbook");});
+//		});
 
     </script>
 

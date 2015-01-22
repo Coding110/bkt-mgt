@@ -1289,6 +1289,12 @@
                     <processing translate="label">
                         <label>Processing</label>
                     </processing>
+                    <waiting_shipment translate="label">
+                        <label>Waiting Shipment</label>
+                    </waiting_shipment>
+                    <waiting_confirm translate="label">
+                        <label>Waiting Confirm</label>
+                    </waiting_confirm>
                     <holded translate="label">
                         <label>On Hold</label>
                     </holded>
@@ -1329,6 +1335,20 @@
                         </statuses>
                         <visible_on_front>1</visible_on_front>
                     </processing>
+                    <waiting_shipment translate="label">
+                        <label>Waiting Shipment</label>
+                        <statuses>
+                            <waiting_shipment default="1"/>
+                        </statuses>
+                        <visible_on_front>1</visible_on_front>
+                    </waiting_shipment>
+                    <waiting_confirm translate="label">
+                        <label>Waiting Confirm</label>
+                        <statuses>
+                            <waiting_confirm default="1"/>
+                        </statuses>
+                        <visible_on_front>1</visible_on_front>
+                    </waiting_confirm>
                     <complete translate="label">
                         <label>Complete</label>
                         <statuses>

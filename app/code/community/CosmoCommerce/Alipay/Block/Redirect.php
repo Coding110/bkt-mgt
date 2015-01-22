@@ -39,8 +39,8 @@ class CosmoCommerce_Alipay_Block_Redirect extends Mage_Core_Block_Abstract
         $formHTML = $form->toHtml();
 
         $html = '<html><body>';
-        //$html.= $this->__('You will be redirected to Alipay in a few seconds.');
-        $html.= $this->__('正在跳转到支付宝的支付页面……');
+        $html.= $this->__('You will be redirected to Alipay in a few seconds.');
+        //$html.= $this->__('正在跳转到支付宝的支付页面……');
         $html.= $formHTML;
         $html.= '<script type="text/javascript">document.getElementById("alipay_payment_checkout").submit();</script>';
         $html.= '</body></html>';

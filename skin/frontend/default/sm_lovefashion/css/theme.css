@@ -2484,6 +2484,16 @@ label.required em {
 #product-options-wrapper.product-options .options-list{
 	margin-bottom: 5px;
 }
+#product-options-wrapper.product-options .w-option{
+	position: relative;
+	float: left;
+	width: 100%;
+}
+#product-options-wrapper.product-options .w-option ul.options-list li{
+	//position: relative;
+	float: left;
+	padding-left: 18px;
+}
 #product-options-wrapper ul.options-list label{
 	font-weight: normal;
 }
