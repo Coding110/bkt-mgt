@@ -1,4 +1,3 @@
-
 (function($){
 
 ////CONFIGURATION
@@ -823,7 +822,6 @@ var Book_v5 = {
 		$('.fb5-nav-arrow-ext-right.add').click(function() {
 			//alert("right add");
 			//location.href="meitu.html";
-			alert("为保证冲印效果，使用美图秀秀时，请勿压缩照片，处理速度慢为正常现象。");
 			window.open("meitu.php");
 			$('.bkt-update').addClass('active').animate({ opacity: 1 }, 1000);
 			contact_form();
@@ -1541,7 +1539,10 @@ var Navigation_v5 = {
 		 $('.fb5-download').on('click', function(event) {
      	 
 		 
-		  
+		  $('.bkt-upload').addClass('active').animate({ opacity: 1 }, 1000);
+			contact_form();
+			clear_on_focus();
+			return false;
 		 
 		 
 		  //$.address.update();
@@ -1740,11 +1741,11 @@ function contact_form() {
 	});
 	*/
 
-	$('#fb5-contact .bkt-update').click(function() {
+	$('#fb5-contact .bkt-btn-update').click(function() {
 		alert("update");
 		close_overlay();
 	});
-	$('#fb5-contact .bkt-not-update').click(function() {
+	$('#fb5-contact .bkt-btn-not-update').click(function() {
 		alert("not update");
 		close_overlay();
 	});

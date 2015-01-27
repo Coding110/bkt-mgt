@@ -45,3 +45,4 @@ app/code/community/Zapper/
 app/etc/modules/Zapper_ScanToLogin.xml
 app/design/frontend/default/sm_lovefashion/template/catalog/product/view/addtocart_20150122.phtml
 app/design/frontend/default/sm_lovefashion/template/catalog/product/view_20150122.phtml
+album_temp/

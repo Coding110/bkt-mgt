@@ -32,5 +32,43 @@
             </catalog_product_new_action>
         </events>
 
+		<models>
+			<printimages>			
+				<class>Bkt_Printimages_Model</class>
+				<resourceModel>printimages_resource</resourceModel>
+			</printimages>			
+
+			<printimages_resource>
+				<class>Bkt_Printimages_Model_Resource</class>
+				<entities>
+					<albums>
+						<table>albums_works</table>
+					</albums>
+				</entities>
+			</printimages_resource>
+		</models>
+
+		<resources>
+			<printimages_setup>
+				<setup>
+					<module>Bkt_Printimages</module>
+					<class>Bkt_Printimages_Model_Resource_Setup</class>
+				</setup>
+			</printimages_setup>
+		</resources>
+
 	</global>
+
+	<frontend>
+		<routers>
+			<printimages>
+				<use>standard</use>
+				<args>
+					<module>Bkt_Printimages</module>
+					<frontName>album</frontName>
+				</args>
+			</printimages>
+		</routers>
+	</frontend>
+
 </config>

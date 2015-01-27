@@ -76,4 +76,3 @@ class Bkt_Printimages_Model_Observer{
 	}
 }
 
-?>

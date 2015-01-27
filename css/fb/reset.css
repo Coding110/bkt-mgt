@@ -63,3 +63,40 @@
 
 #fb5 input,#fb5 textarea { outline: none; }
 
+#fb5 .uploadify-queue {
+	margin-bottom: 1em;
+	width: 100%;
+	max-height: 200px;
+	overflow: auto;
+}
+
+#fb5 .uploadify-button {
+	height: 40px;
+	line-height: 30px;
+	width: 120px;
+	background-color: #d71345;
+	text-align: center;
+	position: relative;
+	left: 180px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+#fb5 .swfupload {
+	height: 40px;
+	line-height: 30px;
+	width: 120px;
+	text-align: center;
+	position: relative;
+	left: 180px;
+}
+
+#fb5 .bkt-btn-upload {
+	margin: 10px 0 0 120px !important;
+	padding: 4px 30px !important;
+}
+#fb5 .bkt-btn-not-upload {
+	margin: 10px 0 0 80px !important;
+	padding: 4px 30px !important;
+}
